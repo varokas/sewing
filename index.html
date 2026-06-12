@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* manual cards */
+  .manual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .manual-grid { grid-template-columns: 1fr; } }
+  .mcard {
+    display: flex; align-items: center; gap: 18px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; color: var(--ink); text-decoration: none;
+  }
+  a.mcard:hover { border-color: var(--fab-stroke); box-shadow: 0 2px 10px rgba(94, 127, 158, 0.18); }
+  .mcard svg { flex: none; }
+  .mcard h3 { margin: 0 0 4px; }
+  .mcard p { margin: 0 0 6px; font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+  .read { color: var(--fab-stroke); font-weight: 600; font-size: 0.85rem; }
+  a.mcard:hover .read { text-decoration: underline; }
+  .soon-chip {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 1px 10px; font-size: 0.72rem; font-weight: 600;
+    margin-left: 6px; vertical-align: 2px;
+  }
+  .mcard.soon h3 { color: var(--muted); }
+  .mcard.soon svg { opacity: 0.85; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+
+  /* seam finish table */
+  table { border-collapse: collapse; width: 100%; margin: 10px 0 2px; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 7px 12px; text-align: left; }
+  th { background: #f3eee4; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+
+  @media print {
+    body { background: #fff; }
+    .tech, .mcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html" aria-current="page">Home</a>
+    <a class="navlink" href="Tops and Shirts.html">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html">Pants</a>
+    <a class="navlink" href="Skirts.html">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html">Knits</a>
+  </div>
+</nav>
+
+<main>
+
+<header>
+  <h1>Sewing Manual</h1>
+  <p class="intro">A garment-assembly manual for a hobbyist sewist working with a sewing machine
+  and a serger. Organized by garment type — each guide covers fabric choice, the full assembly
+  order, the key techniques inline, and links to the source tutorials.</p>
+</header>
+
+<h2>The Manual</h2>
+<div class="manual-grid">
+
+  <a class="mcard" href="Tops and Shirts.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="Button-up shirt">
+      <path class="fabws" d="M26 14 L37 9 L42 16 L47 9 L58 14 L68 26 L60 34 L56 29 L56 68 L28 68 L28 29 L24 34 L16 26 Z"/>
+      <path d="M37 9 L42 18 L47 9" fill="none" stroke="#8fa3b8" stroke-width="1.5"/>
+      <path d="M42 18 L42 66" stroke="#8fa3b8" stroke-width="1"/>
+      <circle cx="42" cy="28" r="1.4" fill="#8fa3b8"/>
+      <circle cx="42" cy="40" r="1.4" fill="#8fa3b8"/>
+      <circle cx="42" cy="52" r="1.4" fill="#8fa3b8"/>
+      <circle cx="42" cy="62" r="1.4" fill="#8fa3b8"/>
+    </svg>
+    <div>
+      <h3>Tops and Shirts</h3>
+      <p>Woven tops, blouses, and the classic button-up — yoke, collar stand, plackets, cuffs.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+  <a class="mcard" href="Dresses.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="Fitted-bodice dress">
+      <path class="fab" d="M28 10 L36 7 Q42 16 48 7 L56 10 Q52 22 53 30 L64 72 Q42 79 20 72 L31 30 Q32 22 28 10 Z"/>
+      <path class="stitch" d="M32 31 Q42 35 52 31"/>
+    </svg>
+    <div>
+      <h3>Dresses</h3>
+      <p>Bodice + skirt construction, linings, invisible zippers, working with silk.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+  <a class="mcard" href="Pants and Shorts.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="Trousers">
+      <path class="fabws" d="M29 10 L55 10 L61 72 L46 72 L42 38 L38 72 L23 72 Z"/>
+      <path d="M29.7 17 L54.7 17" stroke="#8fa3b8" stroke-width="1.2" fill="none"/>
+      <path d="M42 17 Q46 22 44 30" fill="none" stroke="#8fa3b8" stroke-width="1.2" stroke-dasharray="3 2"/>
+    </svg>
+    <div>
+      <h3>Pants and Shorts</h3>
+      <p>Trousers and jeans, the fly front zipper, flat-felled seams, denim.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+  <a class="mcard" href="Skirts.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="A-line skirt with waistband">
+      <rect class="fab" x="29" y="10" width="26" height="8" rx="1.5"/>
+      <path class="fab" d="M30 18 L54 18 L67 70 Q42 78 17 70 Z"/>
+      <path class="stitch" d="M22 66 Q42 73 62 66"/>
+    </svg>
+    <div>
+      <h3>Skirts</h3>
+      <p>The fastest path to a finished garment; waistbands and zipper insertion.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+  <a class="mcard" href="Jackets and Outerwear.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="Jacket with open front and lapels">
+      <path class="fab" d="M24 16 L36 10 L42 20 L48 10 L60 16 L68 30 L61 36 L58 31 L58 70 L26 70 L26 31 L23 36 L16 30 Z"/>
+      <path d="M42 20 L37 70 M42 20 L47 70" fill="none" stroke="#5e7f9e" stroke-width="1.2"/>
+      <path d="M36 10 L42 20 L37 25 L32 14 Z" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1"/>
+      <path d="M48 10 L42 20 L47 25 L52 14 Z" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1"/>
+    </svg>
+    <div>
+      <h3>Jackets and Outerwear</h3>
+      <p>Tailoring, interfacing structure, notched collars, bagging a lining.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+  <a class="mcard" href="Knits and T-Shirts.html">
+    <svg width="64" height="64" viewBox="0 0 84 84" role="img" aria-label="T-shirt with neckband and serged hem">
+      <path class="fabws" d="M26 14 L36 9 Q42 17 48 9 L58 14 L68 26 L60 34 L56 29 L56 68 L28 68 L28 29 L24 34 L16 26 Z"/>
+      <path d="M37 11 Q42 20 47 11" fill="none" stroke="#8fa3b8" stroke-width="1.5"/>
+      <path class="serge" d="M30 64 l3 -3 l3 3 l3 -3 l3 3 l3 -3 l3 3 l3 -3 l3 3"/>
+    </svg>
+    <div>
+      <h3>Knits and T-Shirts</h3>
+      <p>Serger construction, neckbands, hemming knits, activewear.</p>
+      <span class="read">Read the guide →</span>
+    </div>
+  </a>
+
+</div>
+
+<h2>Universal Principles</h2>
+<p class="intro">These apply to every garment in this manual.</p>
+
+<div class="tech">
+  <h3>Order of operations</h3>
+  <p>Almost every garment follows the same logic: <strong>work flat as long as possible, and join
+  pieces from smallest to largest</strong>. The industry phrasing is "sew as small as you can, as
+  flat as you can, for as long as you can." A typical sequence:</p>
+  <ol>
+    <li>Interfacing and stabilizing (fuse before anything else)</li>
+    <li>Details that live on a single flat piece — darts, pleats, pockets, style seams, plackets</li>
+    <li>Zippers and closures that go into a seam (easier flat)</li>
+    <li>Joining seams — shoulders first, then the pieces that hang from them</li>
+    <li>Collars, necklines, facings</li>
+    <li>Sleeves</li>
+    <li>Waist joins (bodice to skirt, waistbands)</li>
+    <li>Hems</li>
+    <li>Buttonholes, buttons, hooks — always last</li>
+  </ol>
+</div>
+
+<div class="tech">
+  <h3>Pressing is half of sewing</h3>
+  <p>Press every seam twice: first flat as sewn (to meld the stitches), then open or to the side
+  as the pattern directs. A seam that is sewn but not pressed looks homemade; the same seam pressed
+  looks factory-made. Match iron temperature to fiber, and use a press cloth on anything delicate
+  or prone to shine.</p>
+</div>
+
+<div class="tech">
+  <h3>Stabilize before you sew</h3>
+  <ul>
+    <li><strong>Staystitch</strong> curved edges (necklines, waistlines, armholes) within the seam
+    allowance immediately after cutting, so they can't stretch out of shape.</li>
+    <li><strong>Interface</strong> anything that needs body or takes stress: collars, cuffs,
+    plackets, waistbands, facings, button areas.</li>
+    <li>Test every stitch, tension, and interfacing choice <strong>on a scrap of the actual
+    fabric</strong> before touching the garment.</li>
+  </ul>
+</div>
+
+<div class="tech">
+  <h3>Machine vs. serger</h3>
+  <ul>
+    <li><strong>Sewing machine</strong> builds the garment: construction seams, topstitching,
+    zippers, buttonholes, anything needing precision.</li>
+    <li><strong>Serger</strong> finishes raw edges on wovens (overlock each piece's edges before
+    or after seaming) and can be the primary construction tool for knits (4-thread overlock seam).</li>
+    <li>The serger never replaces the machine where accuracy matters — sew first, then serge the
+    allowance, for any seam you might need to alter or unpick.</li>
+  </ul>
+</div>
+
+<div class="tech">
+  <h3>Seam finish quick reference</h3>
+  <table>
+    <thead>
+      <tr><th>Finish</th><th>Best for</th><th>Where covered</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Serged/overlocked</td><td>Everyday wovens, fastest</td><td>any guide</td></tr>
+      <tr><td>French seam</td><td>Sheers, silk, fray-prone lightweights</td><td><a class="pagelink" href="Dresses.html">Dresses</a></td></tr>
+      <tr><td>Flat-felled seam</td><td>Jeans, shirts, anything hard-wearing</td><td><a class="pagelink" href="Pants and Shorts.html">Pants and Shorts</a></td></tr>
+      <tr><td>Bound (Hong Kong)</td><td>Unlined jackets, visible insides</td><td><a class="pagelink" href="Jackets and Outerwear.html">Jackets and Outerwear</a></td></tr>
+      <tr><td>None (enclosed)</td><td>Lined garments, knits (don't fray)</td><td><a class="pagelink" href="Jackets and Outerwear.html">Jackets and Outerwear</a>, <a class="pagelink" href="Knits and T-Shirts.html">Knits and T-Shirts</a></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://www.inhousepatternsstudio.com/blog/how-to-get-a-professional-finish-the-order-of-operations">How to Get a Professional Finish: The Order of Operations — In-House Patterns Studio</a></li>
+  <li><a href="https://patternscissorscloth.com/2011/08/05/order-of-construction/">Order of Construction — Pattern Scissors Cloth</a></li>
+  <li><a href="https://littlestitchstudio.com/blog/2020/11/8/a-garment-construction-plan-25-steps-to-successful-sewing">A Garment Construction Plan: 25 Steps to Successful Sewing — Little Stitch Studio</a></li>
+  <li><a href="https://www.cochenille.com/blueprint-to-sewing-how-to-master-the-sequence-of-constructing-your-sewing-patterns/">Blueprint to Sewing: Mastering Construction Sequence — Cochenille Design Studio</a></li>
+  <li><a href="https://inthefolds.com/q-a-series/2022/set-in-sleeves-vs-sew-flat">Setting in Sleeves vs. Sewing Flat — In the Folds</a></li>
+</ul>
+
+<footer>2026-06-11</footer>
+
+</main>
+</body>
+</html>

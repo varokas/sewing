@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tops and Shirts — Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 22px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .legend svg { vertical-align: -4px; margin-right: 6px; }
+
+  /* fabric cards */
+  .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .fabric-grid { grid-template-columns: 1fr; } }
+  .fcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .fcard h3 { margin-top: 0; }
+  .fcard ul { margin: 6px 0 0; padding-left: 20px; }
+  .fabric-note { color: var(--muted); font-style: italic; margin-top: 12px; }
+
+  /* step cards */
+  .step {
+    display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; margin: 16px 0;
+    break-inside: avoid;
+  }
+  @media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+  .step .text { min-width: 0; }
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+    margin-right: 10px; flex: none;
+  }
+  .steptitle { display: flex; align-items: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { margin: 6px 0; }
+  .step ol, .step ul { margin: 4px 0 10px; padding-left: 22px; }
+  .step li { margin: 3px 0; }
+  .step figure { margin: 0; align-self: center; }
+  .step svg, .mini svg { width: 100%; height: auto; display: block; }
+  .step figcaption { display: none; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+  .mini { max-width: 560px; margin: 14px auto 4px; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+  .sources .blocked { color: var(--muted); font-size: .85rem; }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .lining { fill: #f0e0bd; stroke: #bfa269; stroke-width: 1.5; }
+  .interf { fill: url(#dots); stroke: #a89f8d; stroke-width: 1; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .stitch-old { fill: none; stroke: #b8434e; stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .4; }
+  .coil   { fill: none; stroke: #7c4a5e; stroke-width: 3; stroke-dasharray: 2.5 2.5; }
+  .tape   { fill: #e3c1cc; stroke: #b58e9c; stroke-width: 1; }
+  .metal  { fill: #b9bec4; stroke: #7d838a; stroke-width: 1; }
+  .lead   { fill: none; stroke: #9a948a; stroke-width: 1.2; }
+  .guide  { fill: none; stroke: #9a948a; stroke-width: 1; stroke-dasharray: 7 4 2 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+  .slabel { font: 11px -apple-system, "Segoe UI", sans-serif; fill: #5a554e; }
+  .scap   { font: 600 11.5px -apple-system, "Segoe UI", sans-serif; fill: #3a3733; }
+  svg text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+
+  @media print {
+    body { background: #fff; }
+    .step, .tech, .fcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html">Home</a>
+    <a class="navlink" href="Tops and Shirts.html" aria-current="page">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html">Pants</a>
+    <a class="navlink" href="Skirts.html">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html">Knits</a>
+  </div>
+</nav>
+
+<!-- shared defs for all inline SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#eee8dc"/>
+      <circle cx="2.5" cy="2.5" r="1.1" fill="#a59a83"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b665e"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b8434e"/>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+<header>
+  <h1>Tops and Shirts</h1>
+  <div class="tagrow">
+    <span class="tag">#sewing</span>
+    <span class="tag">#manual</span>
+  </div>
+  <p class="intro">Woven tops, blouses, and the classic button-up — the best single teacher in garment
+  sewing, packing plackets, a yoke, a collar with stand, sleeve plackets, cuffs, and buttonholes into
+  one project. Part of the <a class="pagelink" href="index.html">Sewing Manual</a>.</p>
+
+  <div class="legend">
+    <span><svg width="26" height="14"><rect class="fab" x="1" y="1" width="24" height="12" rx="2"/></svg>fabric, right side</span>
+    <span><svg width="26" height="14"><rect class="fabws" x="1" y="1" width="24" height="12" rx="2"/></svg>wrong side</span>
+    <span><svg width="26" height="14"><rect class="interf" x="1" y="1" width="24" height="12" rx="2"/></svg>interfacing</span>
+    <span><svg width="30" height="10"><path class="stitch" d="M1 5 H29"/></svg>stitching</span>
+    <span><svg width="30" height="10"><path class="serge" d="M1 5 H29"/></svg>serger / finish</span>
+  </div>
+</header>
+
+<h2>Fabric</h2>
+<div class="fabric-grid">
+  <div class="fcard">
+    <h3>Easy</h3>
+    <ul>
+      <li>Quilting cotton (stiff but forgiving)</li>
+      <li>Cotton lawn</li>
+      <li>Chambray</li>
+      <li>Linen</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Classic shirting</h3>
+    <ul>
+      <li>Poplin</li>
+      <li>Oxford</li>
+      <li>Flannel</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Advanced</h3>
+    <ul>
+      <li>Rayon challis</li>
+      <li>Silk crepe de chine</li>
+      <li>Double gauze</li>
+      <li>— see the slippery-fabric tips below</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Interfacing</h3>
+    <ul>
+      <li>Collar, stand, cuffs</li>
+      <li>Front plackets / button bands</li>
+      <li>Light fusible (e.g. SF101) on shirting</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Assembly Order — Classic Button-Up</h2>
+
+<!-- ──────────────── STEP 1 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">1</span>Interface &amp; staystitch</div>
+    <p>Fuse interfacing to the collar, collar stand, cuffs, and front plackets / button bands.</p>
+    <p>Staystitch the neckline so the curve can't stretch while you handle the shirt.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Interfacing fused to the collar, stand, cuffs, and front plackets, with the shirt-front neckline staystitched">
+      <!-- pieces to interface, wrong side up with dot pattern -->
+      <text class="scap" x="95" y="36" text-anchor="middle">fuse interfacing</text>
+      <!-- collar -->
+      <path class="fabws" d="M28 58 L150 58 L150 76 Q89 96 28 76 Z"/>
+      <rect class="interf" x="34" y="60" width="108" height="14"/>
+      <text class="slabel" x="89" y="52" text-anchor="middle">collar</text>
+      <!-- collar stand -->
+      <path class="fabws" d="M34 104 L144 104 Q149 113 144 122 L34 122 Q29 113 34 104 Z"/>
+      <rect class="interf" x="40" y="107" width="98" height="12"/>
+      <text class="slabel" x="89" y="138" text-anchor="middle">collar stand</text>
+      <!-- cuffs -->
+      <rect class="fabws" x="34" y="158" width="48" height="30"/>
+      <rect class="interf" x="38" y="162" width="40" height="22"/>
+      <rect class="fabws" x="96" y="158" width="48" height="30"/>
+      <rect class="interf" x="100" y="162" width="40" height="22"/>
+      <text class="slabel" x="89" y="204" text-anchor="middle">cuffs</text>
+      <!-- shirt front with placket + staystitched neck -->
+      <path class="fab" d="M225 56 L330 56 L338 214 Q300 224 248 214 L240 56 Z"/>
+      <!-- front placket band, interfaced strip near CF edge -->
+      <rect class="fabws" x="225" y="56" width="22" height="158" opacity="0.92"/>
+      <rect class="interf" x="231" y="60" width="10" height="150"/>
+      <text class="slabel" x="218" y="150" text-anchor="end">front placket</text>
+      <text class="slabel" x="218" y="163" text-anchor="end">interfaced</text>
+      <path class="lead" d="M220 156 Q 228 156 233 150" marker-end="url(#arr)"/>
+      <!-- neckline staystitch -->
+      <path class="stitch" d="M250 60 Q292 86 326 60"/>
+      <path class="lead" d="M270 70 Q 280 78 288 80" marker-end="url(#arr)"/>
+      <text class="slabel" x="295" y="100" text-anchor="middle">staystitch</text>
+      <text class="slabel" x="295" y="113" text-anchor="middle">the neckline</text>
+      <text class="scap" x="288" y="240" text-anchor="middle">shirt front — staystitch neck</text>
+    </svg>
+    <figcaption>Interface the collar, stand, cuffs, and plackets; staystitch the neckline.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 2 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">2</span>Front bands &amp; pocket</div>
+    <ol>
+      <li>Fold and topstitch the button bands while the fronts are still flat.</li>
+      <li>Add the chest pocket now if there is one — it's nearly impossible later.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Folding and topstitching the front button band on the flat front, then topstitching the chest pocket in place">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — fold &amp; topstitch band</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — add the chest pocket</text>
+      <!-- A: flat front, band folded to inside, topstitched -->
+      <path class="fab" d="M55 60 L150 60 L156 210 Q116 219 70 210 L64 60 Z"/>
+      <!-- folded band -->
+      <rect class="fabws" x="55" y="60" width="20" height="150" opacity="0.9"/>
+      <path class="guide" d="M75 58 L75 214"/>
+      <path class="stitch" d="M61 64 L61 206"/>
+      <path class="stitch" d="M71 64 L71 206"/>
+      <text class="slabel" x="98" y="120" text-anchor="middle">topstitch both</text>
+      <text class="slabel" x="98" y="133" text-anchor="middle">edges of the band</text>
+      <path class="lead" d="M88 124 Q 78 120 73 116" marker-end="url(#arr)"/>
+      <text class="slabel" x="120" y="56" text-anchor="middle">center front fold</text>
+      <text class="scap" x="105" y="240" text-anchor="middle">fronts flat — bands first</text>
+      <!-- B: pocket topstitched onto front -->
+      <path class="fab" d="M226 56 L346 56 L352 214 Q300 224 246 214 L240 56 Z"/>
+      <!-- pocket -->
+      <path class="fab" d="M268 96 L322 96 L322 138 L295 156 L268 138 Z" fill="#7e9cba"/>
+      <path class="stitch" d="M271 99 L319 99 L319 137 L295 152 L271 137 Z"/>
+      <!-- folded hem at pocket top -->
+      <path class="guide" d="M268 106 H322"/>
+      <!-- reinforce triangle corner -->
+      <path class="lead" d="M268 138 L274 134 M322 138 L316 134"/>
+      <text class="slabel" x="295" y="184" text-anchor="middle">topstitch around;</text>
+      <text class="slabel" x="295" y="197" text-anchor="middle">reinforce the corners</text>
+      <text class="scap" x="295" y="240" text-anchor="middle">pocket goes on now, not later</text>
+    </svg>
+    <figcaption>Topstitch the folded button bands flat, then add the chest pocket.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 3 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">3</span>Back + yoke (burrito)</div>
+    <ol>
+      <li>Form the back pleat(s).</li>
+      <li>Attach the yoke with the <strong>burrito method</strong> (below) so every yoke seam is enclosed.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Back pleat formed, then the shirt back sandwiched between the two yoke pieces and rolled into a burrito so the seams end up enclosed">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — pleat + sandwich yoke</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — roll &amp; pull through</text>
+      <!-- A: back with pleat, yoke pieces above and below the top edge -->
+      <path class="fab" d="M40 100 L150 100 L156 215 Q98 224 42 215 Z"/>
+      <!-- box pleat at center back -->
+      <path class="guide" d="M90 100 L90 130 M100 100 L100 130"/>
+      <path class="fabws" d="M90 100 L100 100 L100 116 L90 116 Z"/>
+      <text class="slabel" x="95" y="150" text-anchor="middle">back pleat</text>
+      <!-- top yoke (right side) above -->
+      <rect class="fab" x="40" y="74" width="116" height="20"/>
+      <text class="slabel" x="98" y="68" text-anchor="middle">outer yoke (RST)</text>
+      <!-- under yoke behind, dot pattern -->
+      <rect class="fabws" x="44" y="96" width="108" height="8" opacity="0.85"/>
+      <path class="stitch" d="M44 99 L152 99"/>
+      <text class="slabel" x="98" y="200" text-anchor="middle">back sandwiched</text>
+      <text class="slabel" x="98" y="213" text-anchor="middle">between yokes</text>
+      <!-- B: burrito roll + pull-through -->
+      <!-- yoke wrapper -->
+      <rect class="fab" x="232" y="70" width="106" height="30" rx="6"/>
+      <text class="slabel" x="285" y="62" text-anchor="middle">yoke wraps the roll</text>
+      <!-- rolled body -->
+      <ellipse cx="285" cy="118" rx="48" ry="17" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="guide" d="M243 118 Q 285 110 327 118"/>
+      <path class="guide" d="M243 124 Q 285 116 327 124"/>
+      <text class="slabel" x="285" y="148" text-anchor="middle">body rolled into a "burrito"</text>
+      <!-- shoulder seam stitched through wrapper -->
+      <path class="stitch" d="M236 84 L334 84"/>
+      <!-- pull-through arrow -->
+      <path d="M300 176 C 332 168, 320 130, 300 118" fill="none" stroke="#b8434e" stroke-width="1.8" marker-end="url(#arrR)"/>
+      <text class="slabel" x="285" y="190" text-anchor="middle">pull body out the neck —</text>
+      <text class="slabel" x="285" y="203" text-anchor="middle">all yoke seams enclosed</text>
+      <text class="scap" x="285" y="240" text-anchor="middle">no exposed seams inside</text>
+    </svg>
+    <figcaption>Form the back pleat, sandwich the back between yokes, roll into a burrito, and pull through.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 4 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">4</span>Shoulder seams</div>
+    <p>If you used the burrito method, the shoulder seams are sewn and <strong>enclosed inside the
+    yoke</strong> at the same time — no separate step.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Shoulder seams enclosed between the two yoke pieces, shown as a cross-section of the layered yoke at the shoulder">
+      <!-- shoulder yoke front, RS -->
+      <path class="fab" d="M70 70 L310 70 L300 120 Q190 134 80 120 Z"/>
+      <!-- neckline -->
+      <path class="guide" d="M150 74 Q190 100 230 74"/>
+      <text class="slabel" x="190" y="98" text-anchor="middle">yoke (right side)</text>
+      <!-- shoulder seam lines -->
+      <path class="stitch" d="M120 78 L108 118"/>
+      <path class="stitch" d="M260 78 L272 118"/>
+      <path class="lead" d="M118 60 Q 116 70 114 96" marker-end="url(#arr)"/>
+      <path class="lead" d="M262 60 Q 264 70 266 96" marker-end="url(#arr)"/>
+      <text class="slabel" x="190" y="56" text-anchor="middle">shoulder seams</text>
+      <!-- cross-section inset: two yokes enclosing the seam -->
+      <rect class="fab" x="120" y="168" width="140" height="11"/>
+      <rect class="fabws" x="120" y="181" width="140" height="9"/>
+      <rect class="fab" x="120" y="190" width="140" height="11"/>
+      <path class="stitch" d="M132 162 L132 207"/>
+      <text class="slabel" x="190" y="156" text-anchor="middle">cross-section: seam caught</text>
+      <text class="slabel" x="190" y="225" text-anchor="middle">between the two yoke layers</text>
+      <text class="scap" x="190" y="243" text-anchor="middle">enclosed at the same time</text>
+    </svg>
+    <figcaption>Shoulder seams are enclosed between the two yoke layers by the burrito method.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 5 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">5</span>Collar</div>
+    <p>Assemble the collar, then the stand, then attach to the neckline (full technique below).</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Collar sewn, trimmed and turned, then sandwiched between the two stand pieces and attached to the neckline">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — sew, trim &amp; turn collar</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — stand to neckline</text>
+      <!-- A: upper + under collar RST, stitched around, corners trimmed -->
+      <path class="fabws" d="M30 78 L150 78 L150 92 Q90 112 30 92 Z"/>
+      <path class="stitch" d="M34 82 L146 82 L146 90 Q90 108 34 90 Z"/>
+      <!-- trimmed corners -->
+      <path class="lead" d="M30 78 l8 6 M150 78 l-8 6"/>
+      <text class="slabel" x="90" y="74" text-anchor="middle">upper slightly larger</text>
+      <text class="slabel" x="90" y="130" text-anchor="middle">sew, trim corners,</text>
+      <text class="slabel" x="90" y="143" text-anchor="middle">turn &amp; press</text>
+      <text class="slabel" x="90" y="172" text-anchor="middle">"turn of cloth" rolls</text>
+      <text class="slabel" x="90" y="185" text-anchor="middle">the seam to the underside</text>
+      <text class="scap" x="95" y="240" text-anchor="middle">finished collar</text>
+      <!-- B: stand sandwich + neckline -->
+      <!-- finished collar (thin) -->
+      <rect class="fab" x="228" y="70" width="120" height="12"/>
+      <text class="slabel" x="288" y="64" text-anchor="middle">finished collar</text>
+      <!-- two stand pieces -->
+      <path class="fab" d="M226 92 L350 92 Q356 104 350 116 L226 116 Q220 104 226 92 Z"/>
+      <rect class="interf" x="232" y="96" width="112" height="8"/>
+      <text class="slabel" x="288" y="132" text-anchor="middle">collar sits between</text>
+      <text class="slabel" x="288" y="145" text-anchor="middle">the two stand pieces</text>
+      <!-- neckline of shirt -->
+      <path class="fab" d="M222 170 Q288 152 354 170 L354 214 Q288 224 222 214 Z"/>
+      <path class="stitch" d="M226 172 Q288 156 350 172"/>
+      <text class="slabel" x="288" y="196" text-anchor="middle">attach stand to neck;</text>
+      <text class="slabel" x="288" y="209" text-anchor="middle">edgestitch inner stand</text>
+      <path class="lead" d="M288 150 L288 166" marker-end="url(#arr)"/>
+      <text class="scap" x="288" y="240" text-anchor="middle">shirt neckline</text>
+    </svg>
+    <figcaption>Collar sewn and turned, then sandwiched in the stand and attached to the neckline.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 6 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">6</span>Sleeve plackets</div>
+    <p>Sew the tower or continuous-bound plackets while the sleeves are still flat pieces — far easier
+    than after the sleeve is a tube.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="A tower placket sewn around the slit in a flat sleeve, with the placket folded over and topstitched into the classic tower point">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — slit the flat sleeve</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — fold &amp; topstitch tower</text>
+      <!-- A: flat sleeve hem with slit -->
+      <path class="fab" d="M40 70 L150 70 L150 200 L40 200 Z"/>
+      <text class="slabel" x="95" y="62" text-anchor="middle">sleeve, flat</text>
+      <!-- slit -->
+      <path d="M95 200 L95 150" stroke="#5a554e" stroke-width="1.3"/>
+      <!-- placket strip alongside slit -->
+      <rect class="fabws" x="82" y="150" width="26" height="50" opacity="0.9"/>
+      <path class="stitch" d="M86 150 L86 198 M104 150 L104 198"/>
+      <text class="slabel" x="95" y="218" text-anchor="middle">slit, placket pinned on</text>
+      <!-- B: finished tower placket -->
+      <path class="fab" d="M232 70 L344 70 L344 200 L232 200 Z"/>
+      <!-- tower shape -->
+      <path class="fabd" d="M276 200 L276 120 L286 108 L296 120 L296 200 Z"/>
+      <path class="stitch" d="M279 198 L279 122 L286 113 L293 122 L293 198"/>
+      <!-- topstitch across the box -->
+      <path class="stitch" d="M276 168 L296 168"/>
+      <text class="slabel" x="286" y="100" text-anchor="middle">tower point</text>
+      <path class="lead" d="M286 104 L286 110" marker-end="url(#arr)"/>
+      <text class="slabel" x="286" y="218" text-anchor="middle">folded over &amp; topstitched</text>
+      <text class="scap" x="190" y="243" text-anchor="middle">do it while the sleeve is flat</text>
+    </svg>
+    <figcaption>Sew the tower placket around the slit while the sleeve is still flat.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 7 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">7</span>Set the sleeves flat</div>
+    <p>Shirt sleeve caps are shallow, so the sleeve goes in <strong>flat</strong> — before the side
+    seams are sewn — matching the cap to the open armhole.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Shirt body opened flat at the armhole with the shallow-cap sleeve laid in right sides together and stitched along the armscye, before any side seam is sewn">
+      <!-- open shirt body, flat, armhole exposed -->
+      <path class="fab" d="M40 70 L150 70 Q150 130 150 200 L40 200 Z"/>
+      <!-- armhole curve at right edge -->
+      <path class="guide" d="M150 78 Q120 130 150 192"/>
+      <text class="slabel" x="92" y="140" text-anchor="middle">shirt body,</text>
+      <text class="slabel" x="92" y="153" text-anchor="middle">still open flat</text>
+      <text class="scap" x="92" y="240" text-anchor="middle">no side seam yet</text>
+      <!-- sleeve, shallow cap, RST against the armhole -->
+      <path class="fab" d="M250 78 Q300 64 350 78 L344 200 Q300 210 256 200 Z" fill="#7e9cba"/>
+      <!-- shallow cap top -->
+      <path class="guide" d="M250 80 Q300 70 350 80"/>
+      <path class="stitch" d="M252 82 Q300 73 348 82"/>
+      <text class="slabel" x="300" y="120" text-anchor="middle">shallow cap —</text>
+      <text class="slabel" x="300" y="133" text-anchor="middle">little easing</text>
+      <text class="slabel" x="300" y="60" text-anchor="middle">stitch cap to open armhole</text>
+      <path class="lead" d="M222 130 Q 200 110 200 90" marker-end="url(#arr)"/>
+      <path class="lead" d="M158 130 Q 180 110 246 92" marker-end="url(#arr)"/>
+      <text class="scap" x="300" y="240" text-anchor="middle">set flat, then close the side</text>
+    </svg>
+    <figcaption>Set the shallow-cap sleeve flat into the open armhole before sewing the side seam.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 8 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">8</span>Side + underarm seams</div>
+    <ol>
+      <li>Sew one continuous seam from hem to cuff edge.</li>
+      <li>Flat-fell or French-seam it for a clean inside (or serge).</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="One continuous side and underarm seam from the shirt hem up through the underarm and down the sleeve to the cuff edge, finished as a flat-felled seam">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — one continuous seam</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — flat-fell the allowance</text>
+      <!-- A: T-shape: body + sleeve, seam runs along it -->
+      <!-- sleeve arm -->
+      <path class="fabws" d="M40 70 L150 70 L150 110 L40 110 Z"/>
+      <!-- body -->
+      <path class="fabws" d="M110 70 L150 70 L150 210 L110 210 Z"/>
+      <!-- continuous seam path: cuff edge -> underarm -> hem -->
+      <path class="stitch" d="M44 106 L128 106 L128 206" marker-end="url(#arrR)"/>
+      <circle cx="44" cy="106" r="2.6" fill="#b8434e"/>
+      <text class="slabel" x="60" y="86" text-anchor="middle">cuff edge</text>
+      <text class="slabel" x="146" y="150" text-anchor="end">hem</text>
+      <text class="slabel" x="100" y="128" text-anchor="middle">underarm pivot</text>
+      <path class="lead" d="M104 120 Q 116 114 124 110" marker-end="url(#arr)"/>
+      <text class="scap" x="95" y="240" text-anchor="middle">hem to cuff in one pass</text>
+      <!-- B: flat-felled seam cross-section -->
+      <rect class="fab" x="226" y="120" width="120" height="14"/>
+      <rect class="fab" x="226" y="134" width="120" height="14"/>
+      <!-- wider SA wrapped over narrower, folded -->
+      <path class="fabws" d="M340 120 q14 0 14 14 q0 14 -14 14 l-10 0 l0 -28 Z"/>
+      <path class="stitch" d="M236 124 H330"/>
+      <path class="stitch" d="M236 144 H330"/>
+      <text class="slabel" x="285" y="106" text-anchor="middle">wrap the wider edge</text>
+      <text class="slabel" x="285" y="172" text-anchor="middle">over the narrow one,</text>
+      <text class="slabel" x="285" y="185" text-anchor="middle">fold under, topstitch</text>
+      <text class="scap" x="285" y="240" text-anchor="middle">flat-fell, French, or serge</text>
+    </svg>
+    <figcaption>Sew one continuous side and underarm seam, then flat-fell or French it.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 9 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">9</span>Cuffs</div>
+    <p>Pleat the sleeve ends, attach the cuffs, and topstitch.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Pleating the sleeve end to fit the cuff, then wrapping the cuff around the raw edge and topstitching all around">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — pleat the sleeve end</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — attach &amp; topstitch cuff</text>
+      <!-- A: sleeve tube end with pleats -->
+      <path class="fab" d="M40 80 L150 80 L150 190 L40 190 Z"/>
+      <!-- pleats at the bottom edge -->
+      <path class="fabws" d="M70 190 l8 -16 l8 16 Z"/>
+      <path class="fabws" d="M104 190 l8 -16 l8 16 Z"/>
+      <path class="guide" d="M40 190 H150"/>
+      <text class="slabel" x="95" y="166" text-anchor="middle">two pleats take up</text>
+      <text class="slabel" x="95" y="179" text-anchor="middle">the extra width</text>
+      <path class="lead" d="M95 200 Q 90 196 86 190" marker-end="url(#arr)"/>
+      <text class="scap" x="95" y="218" text-anchor="middle">pleat to fit the cuff</text>
+      <!-- B: cuff wrapping the edge, topstitched -->
+      <path class="fab" d="M232 70 L344 70 L344 130 L232 130 Z"/>
+      <!-- cuff band -->
+      <rect class="fab" x="226" y="130" width="124" height="40" fill="#7e9cba"/>
+      <rect class="interf" x="232" y="135" width="112" height="6"/>
+      <path class="stitch" d="M232 134 H344"/>
+      <path class="stitch" d="M230 164 H346"/>
+      <path class="stitch" d="M230 134 L230 164 M346 134 L346 164"/>
+      <text class="slabel" x="288" y="190" text-anchor="middle">cuff wraps the raw edge;</text>
+      <text class="slabel" x="288" y="203" text-anchor="middle">topstitch all around</text>
+      <text class="scap" x="288" y="226" text-anchor="middle">edgestitch for a crisp finish</text>
+    </svg>
+    <figcaption>Pleat the sleeve end, wrap the cuff around it, and topstitch.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 10 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">10</span>Hem</div>
+    <p>Narrow hem all around. Curved shirttail hems ease in better if you stitch a line at the fold
+    line first and press along it before turning.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="A curved shirttail hem: a guide line of stitching at the fold, then the narrow hem turned twice and topstitched along the curve">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — stitch the fold line</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — turn twice, topstitch</text>
+      <!-- A: shirttail with guide stitching -->
+      <path class="fab" d="M40 60 L150 60 L150 150 Q95 200 40 150 Z"/>
+      <path class="stitch" d="M44 150 Q95 192 146 150"/>
+      <text class="slabel" x="95" y="120" text-anchor="middle">stitch a line at the</text>
+      <text class="slabel" x="95" y="133" text-anchor="middle">fold, then press to it</text>
+      <text class="scap" x="95" y="226" text-anchor="middle">curve eases in cleanly</text>
+      <!-- B: cross-section of narrow double-fold hem -->
+      <path class="fab" d="M226 70 L346 70 L346 140 Q286 170 226 140 Z"/>
+      <!-- double-fold band along the curve -->
+      <path class="fabws" d="M232 134 Q286 160 340 134 L340 150 Q286 178 232 150 Z" opacity="0.9"/>
+      <path class="stitch" d="M234 146 Q286 172 338 146"/>
+      <path class="lead" d="M352 120 Q 358 134 350 146" marker-end="url(#arr)"/>
+      <text class="slabel" x="286" y="112" text-anchor="middle">turn under twice —</text>
+      <text class="slabel" x="286" y="125" text-anchor="middle">narrow, ~1/4″</text>
+      <text class="scap" x="286" y="200" text-anchor="middle">topstitch the narrow hem</text>
+    </svg>
+    <figcaption>Stitch the fold line of the curved shirttail, then turn twice and topstitch a narrow hem.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 11 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">11</span>Buttonholes, then buttons</div>
+    <p>Always last, after a final fit check on button placement. Mark the buttonhole positions evenly
+    down the band, sew the buttonholes, then sew buttons to match.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Buttonholes marked and sewn evenly down one front band, with buttons sewn to match on the other band">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — buttonholes on the band</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — buttons to match</text>
+      <!-- A: band with vertical buttonholes -->
+      <path class="fab" d="M70 56 L150 56 L150 214 L70 214 Z"/>
+      <rect class="fabws" x="78" y="56" width="22" height="158" opacity="0.85"/>
+      <path class="guide" d="M89 60 L89 210"/>
+      <!-- buttonholes -->
+      <rect class="stitch" x="85" y="74" width="8" height="14" rx="3"/>
+      <rect class="stitch" x="85" y="110" width="8" height="14" rx="3"/>
+      <rect class="stitch" x="85" y="146" width="8" height="14" rx="3"/>
+      <rect class="stitch" x="85" y="182" width="8" height="14" rx="3"/>
+      <text class="slabel" x="120" y="140" text-anchor="middle">even spacing</text>
+      <text class="scap" x="95" y="240" text-anchor="middle">sew buttonholes first</text>
+      <!-- B: band with buttons -->
+      <path class="fab" d="M232 56 L312 56 L312 214 L232 214 Z"/>
+      <path class="guide" d="M272 60 L272 210"/>
+      <circle cx="272" cy="81" r="6" class="metal"/>
+      <circle cx="272" cy="117" r="6" class="metal"/>
+      <circle cx="272" cy="153" r="6" class="metal"/>
+      <circle cx="272" cy="189" r="6" class="metal"/>
+      <!-- thread holes -->
+      <path d="M270 79 l4 4 M274 79 l-4 4" stroke="#7d838a" stroke-width="0.8"/>
+      <path d="M270 115 l4 4 M274 115 l-4 4" stroke="#7d838a" stroke-width="0.8"/>
+      <path d="M270 151 l4 4 M274 151 l-4 4" stroke="#7d838a" stroke-width="0.8"/>
+      <path d="M270 187 l4 4 M274 187 l-4 4" stroke="#7d838a" stroke-width="0.8"/>
+      <text class="slabel" x="300" y="140" text-anchor="middle">align to holes</text>
+      <text class="scap" x="285" y="240" text-anchor="middle">then sew buttons to match</text>
+    </svg>
+    <figcaption>Sew the buttonholes down one band, then sew buttons to match on the other.</figcaption>
+  </figure>
+</div>
+
+<h2>Key Techniques</h2>
+
+<div class="tech">
+  <h3>The burrito yoke</h3>
+  <p>The trick that finishes the yoke with zero exposed seams: sandwich the shirt back between the two
+  yoke pieces (right sides facing the back) and sew through all three layers. Then roll the shirt body
+  up into a "burrito," wrap the yoke pieces around it at the shoulder seams, sew, and pull the body out
+  through the neck opening. Everything is enclosed. Follow the photos at Closet Core or Pattern Scout the
+  first time — it doesn't make sense until you see it.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 180" role="img" aria-label="Burrito yoke in three stages: back sandwiched between two yoke pieces, the body rolled up with the yoke wrapped around the shoulders, and the result pulled out through the neck with all seams enclosed">
+      <text class="scap" x="64" y="22" text-anchor="middle">1 — sandwich</text>
+      <text class="scap" x="190" y="22" text-anchor="middle">2 — roll &amp; wrap</text>
+      <text class="scap" x="316" y="22" text-anchor="middle">3 — pull through</text>
+      <!-- 1: back between two yokes -->
+      <rect class="fab" x="28" y="40" width="72" height="10"/>
+      <rect class="fabws" x="32" y="50" width="64" height="44"/>
+      <rect class="fab" x="28" y="94" width="72" height="10"/>
+      <path class="stitch" d="M30 50 H100 M30 94 H100"/>
+      <text class="slabel" x="64" y="124" text-anchor="middle">back between</text>
+      <text class="slabel" x="64" y="137" text-anchor="middle">the two yokes</text>
+      <!-- 2: rolled body with wrapper -->
+      <rect class="fab" x="150" y="42" width="80" height="20" rx="6"/>
+      <ellipse cx="190" cy="92" rx="36" ry="14" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="guide" d="M156 92 Q 190 86 224 92"/>
+      <path class="stitch" d="M152 52 H228"/>
+      <text class="slabel" x="190" y="124" text-anchor="middle">yoke wraps the</text>
+      <text class="slabel" x="190" y="137" text-anchor="middle">rolled-up body</text>
+      <!-- 3: pull through -->
+      <rect class="fab" x="278" y="44" width="78" height="58" rx="4"/>
+      <path class="guide" d="M298 50 Q317 64 336 50"/>
+      <path d="M324 132 C 352 120, 346 84, 324 76" fill="none" stroke="#b8434e" stroke-width="1.6" marker-end="url(#arrR)"/>
+      <text class="slabel" x="316" y="124" text-anchor="middle">seams enclosed</text>
+      <text class="slabel" x="316" y="137" text-anchor="middle">inside the yoke</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Collar with stand</h3>
+  <ul>
+    <li>The upper collar is cut or trimmed slightly larger than the under collar — that difference
+    ("turn of cloth") rolls the seam to the underside so it never shows.</li>
+    <li>Sew the collar, trim corners, turn, and press <em>before</em> dealing with the stand.</li>
+    <li>Sandwich the finished collar between the two stand pieces, sew the curved ends, then attach the
+    stand to the neckline. Press the inner stand's seam allowance under first so you can edgestitch it
+    closed from the outside.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 180" role="img" aria-label="Cross-section of a collar caught between two stand pieces, with the interfaced outer stand topstitched to the neckline and the inner stand's pressed-under edge edgestitched closed">
+      <text class="scap" x="95" y="24" text-anchor="middle">collar in the stand</text>
+      <text class="scap" x="285" y="24" text-anchor="middle">edgestitch inner stand</text>
+      <!-- left: collar between two stands, cross-section -->
+      <rect class="fab" x="40" y="52" width="20" height="70"/>
+      <text class="slabel" x="50" y="46" text-anchor="middle">collar</text>
+      <!-- outer stand -->
+      <path class="fab" d="M60 78 L150 78 Q156 88 150 98 L60 98 Z"/>
+      <rect class="interf" x="66" y="82" width="78" height="6"/>
+      <!-- inner stand -->
+      <path class="fabws" d="M60 100 L150 100 Q156 110 150 120 L60 120 Z"/>
+      <path class="stitch" d="M64 90 L150 90"/>
+      <text class="slabel" x="108" y="140" text-anchor="middle">collar caught between</text>
+      <text class="slabel" x="108" y="153" text-anchor="middle">outer + inner stand</text>
+      <!-- right: neckline with edgestitch -->
+      <path class="fab" d="M222 60 Q285 44 348 60 L348 96 Q285 108 222 96 Z"/>
+      <!-- stand band on top -->
+      <path class="fab" d="M226 60 Q285 46 344 60 L344 78 Q285 90 226 78 Z" fill="#7e9cba"/>
+      <path class="stitch" d="M230 74 Q285 86 340 74"/>
+      <path class="lead" d="M285 118 L285 92" marker-end="url(#arr)"/>
+      <text class="slabel" x="285" y="134" text-anchor="middle">press inner edge under,</text>
+      <text class="slabel" x="285" y="147" text-anchor="middle">edgestitch from the outside</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Setting sleeves flat vs. in the round</h3>
+  <p>Shirts and relaxed tops with shallow sleeve caps: <strong>flat</strong>, before side seams
+  (step 7 above). Fitted blouses with tall, eased sleeve caps: <strong>in the round</strong> — sew the
+  side seam and the sleeve seam first, run two rows of ease stitching over the cap, and distribute the
+  ease so the cap curves over the shoulder with no puckers. In the Folds explains how to tell which
+  method your pattern needs; Itch to Stitch's "fearless set-in sleeve" is the best walkthrough of
+  easing.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 180" role="img" aria-label="An eased set-in sleeve: two rows of basting on the cap between the single front notch and double back notch, with the bobbin threads pulled to distribute the ease evenly into the armhole">
+      <text class="scap" x="95" y="24" text-anchor="middle">two rows of ease on the cap</text>
+      <text class="scap" x="285" y="24" text-anchor="middle">distribute, then set in the round</text>
+      <!-- left: sleeve cap with two ease rows + notches -->
+      <path class="fab" d="M30 130 Q34 78 72 56 Q98 42 124 56 Q162 78 166 130 L150 168 Q98 176 46 168 Z"/>
+      <path class="stitch" d="M48 92 Q98 56 148 92"/>
+      <path class="stitch" d="M51 101 Q98 64 145 101"/>
+      <!-- single front notch, double back -->
+      <path class="lead" d="M46 86 l-6 -7"/>
+      <path class="lead" d="M150 84 l6 -7 M155 90 l6 -7"/>
+      <text class="slabel" x="40" y="74" text-anchor="end">front</text>
+      <text class="slabel" x="164" y="74">back</text>
+      <text class="slabel" x="98" y="132" text-anchor="middle">cap only, between notches</text>
+      <!-- right: armhole with eased cap, no tucks -->
+      <rect class="fabws" x="214" y="44" width="150" height="124"/>
+      <circle class="fab" cx="289" cy="108" r="44"/>
+      <circle class="stitch" cx="289" cy="108" r="44" fill="none"/>
+      <path class="lead" d="M274 68 l-2 -8 M284 65 l-1 -8 M294 65 l1 -8 M304 68 l2 -8"/>
+      <text class="slabel" x="289" y="112" text-anchor="middle">eased smooth —</text>
+      <text class="slabel" x="289" y="125" text-anchor="middle">no tucks</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Serger Notes</h2>
+<div class="tech">
+  <ul>
+    <li>Serge the raw edges of side seams and armholes if you're not flat-felling or French seaming.</li>
+    <li>Don't serge the neckline, collar, or placket edges — those are enclosed, and serging only adds bulk.</li>
+  </ul>
+</div>
+
+<h2>Advanced: Slippery and Shifty Blouse Fabrics</h2>
+<div class="tech">
+  <ul>
+    <li>Stabilize before cutting: a light spray starch or gelatin soak tames rayon and silk; cut on a
+    single layer over tissue paper with a rotary cutter and weights.</li>
+    <li>New 70/10 or 80/12 microtex needle, stitch length down to 2.0, and slower machine speed.</li>
+    <li>French seams instead of serging — finer, and no thread bulk showing through.</li>
+    <li>Press with low heat and a press cloth; finger-press where the iron risks glazing.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 150" role="img" aria-label="French seam in two passes for slippery fabric: first wrong sides together and trimmed close, then flipped right sides together so the raw edge is enclosed">
+      <text class="scap" x="95" y="34" text-anchor="middle">pass 1 — WST at 3/8″</text>
+      <rect class="fab" x="30" y="58" width="110" height="9"/>
+      <rect class="fab" x="30" y="73" width="110" height="9"/>
+      <path class="stitch" d="M132 52 V88"/>
+      <path class="lead" d="M141 70 l14 0" stroke-width="1"/>
+      <text class="slabel" x="85" y="112" text-anchor="middle">sew, then trim</text>
+      <text class="slabel" x="85" y="125" text-anchor="middle">close to the stitches</text>
+      <path class="lead" d="M168 70 H208 " marker-end="url(#arr)"/>
+      <text class="scap" x="290" y="34" text-anchor="middle">pass 2 — RST at 1/4″</text>
+      <rect class="fabws" x="225" y="58" width="110" height="9"/>
+      <rect class="fabws" x="225" y="73" width="110" height="9"/>
+      <path d="M335 58 q12 6 0 12 q-6 3 0 11" fill="none" stroke="#8fa3b8" stroke-width="1.5"/>
+      <path class="stitch" d="M326 52 V88"/>
+      <text class="slabel" x="290" y="112" text-anchor="middle">flip and sew again —</text>
+      <text class="slabel" x="290" y="125" text-anchor="middle">raw edge enclosed inside</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://blog.closetcorepatterns.com/sewing-a-shirt-yoke-the-burrito-method/">Sewing a Shirt Yoke: The Burrito Method (Kalle Sewalong) — Closet Core Patterns</a></li>
+  <li><a href="https://patternscoutstudio.com/blogs/byrdie-button-up-blouse-dress-sewalong/shirtmaking-adding-a-yoke-to-a-blouse-pattern-burrito-method">Adding a Yoke with the Burrito Method — Pattern Scout Studio</a></li>
+  <li><a href="https://www.seamwork.com/sewing-tutorials/learn-to-sew-an-easy-button-up">West Sewalong: Learn to Sew an Easy Button Up — Seamwork</a></li>
+  <li><a href="https://weallsew.com/classic-button-shirt-sew-along-part-1/">Classic Button Up Shirt Sew-Along, Part 1 — WeAllSew</a> and <a href="https://weallsew.com/classic-button-shirt-sew-along-part-2/">Part 2</a></li>
+  <li><a href="https://mellysews.com/mens-shirt-pattern-tutorial/">Men's Shirt Pattern and Tutorial — Melly Sews</a></li>
+  <li><a href="https://threadtheory.ca/blogs/sew-alongs/118573573-fairfield-sew-along-the-yoke">Fairfield Button-up Sew-Along: The Yoke — Thread Theory</a></li>
+  <li><a href="https://peekaboopatternshop.com/our-blog/how-to-sew-a-button-up-shirt">How to Sew a Button-Up Shirt: Step-by-Step — Peekaboo Pattern Shop</a></li>
+  <li><a href="https://blog.megannielsen.com/2016/09/how-to-set-sleeves/">How to Set Sleeves (Dove Blouse) — Megan Nielsen</a></li>
+  <li><a href="https://itch-to-stitch.com/fearless-set-sleeve/">Fearless Set-in Sleeve — Itch to Stitch</a></li>
+  <li><a href="https://inthefolds.com/q-a-series/2022/set-in-sleeves-vs-sew-flat">Setting in Sleeves vs. Sewing Flat — In the Folds</a></li>
+  <li><a href="https://blog.closetcorepatterns.com/tips-for-sewing-with-slippery-fabrics/">Tips for Sewing with Slippery Fabrics — Closet Core Patterns</a></li>
+</ul>
+
+<footer>Diagrams informed by the Closet Core Patterns, WeAllSew, and Itch to Stitch tutorials above · 2026-06-12</footer>
+
+</main>
+</body>
+</html>

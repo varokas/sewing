@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jackets and Outerwear — Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 22px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .legend svg { vertical-align: -4px; margin-right: 6px; }
+
+  /* fabric cards */
+  .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .fabric-grid { grid-template-columns: 1fr; } }
+  .fcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .fcard h3 { margin-top: 0; }
+  .fcard ul { margin: 6px 0 0; padding-left: 20px; }
+  .fabric-note { color: var(--muted); font-style: italic; margin-top: 12px; }
+
+  /* step cards */
+  .step {
+    display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; margin: 16px 0;
+    break-inside: avoid;
+  }
+  @media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+  .step .text { min-width: 0; }
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+    margin-right: 10px; flex: none;
+  }
+  .steptitle { display: flex; align-items: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { margin: 6px 0; }
+  .step ol, .step ul { margin: 4px 0 10px; padding-left: 22px; }
+  .step li { margin: 3px 0; }
+  .step figure { margin: 0; align-self: center; }
+  .step svg, .mini svg { width: 100%; height: auto; display: block; }
+  .step figcaption { display: none; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+  .mini { max-width: 560px; margin: 14px auto 4px; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+  .sources .blocked { color: var(--muted); font-size: .85rem; }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .lining { fill: #f0e0bd; stroke: #bfa269; stroke-width: 1.5; }
+  .interf { fill: url(#dots); stroke: #a89f8d; stroke-width: 1; }
+  .pad    { fill: #d8d2c4; stroke: #aaa190; stroke-width: 1.3; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .stitch-old { fill: none; stroke: #b8434e; stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .4; }
+  .lead   { fill: none; stroke: #9a948a; stroke-width: 1.2; }
+  .guide  { fill: none; stroke: #9a948a; stroke-width: 1; stroke-dasharray: 7 4 2 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+  .slabel { font: 11px -apple-system, "Segoe UI", sans-serif; fill: #5a554e; }
+  .scap   { font: 600 11.5px -apple-system, "Segoe UI", sans-serif; fill: #3a3733; }
+  svg text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+
+  @media print {
+    body { background: #fff; }
+    .step, .tech, .fcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html">Home</a>
+    <a class="navlink" href="Tops and Shirts.html">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html">Pants</a>
+    <a class="navlink" href="Skirts.html">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html" aria-current="page">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html">Knits</a>
+  </div>
+</nav>
+
+<!-- shared defs for all inline SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#eee8dc"/>
+      <circle cx="2.5" cy="2.5" r="1.1" fill="#a59a83"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b665e"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b8434e"/>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+<header>
+  <h1>Jackets and Outerwear</h1>
+  <p class="intro">Blazers, coats, and anoraks — the deep end. Everything from the other guides shows up
+  here, plus structure (interfacing strategy), the notched collar, and the bagged lining. Work up to this
+  via <a class="pagelink" href="Tops and Shirts.html">Tops and Shirts</a> (collars, set-in sleeves) and
+  <a class="pagelink" href="Dresses.html">Dresses</a> (linings).
+  Part of the <a class="pagelink" href="index.html">Sewing Manual</a>.</p>
+
+  <div class="legend">
+    <span><svg width="26" height="14"><rect class="fab" x="1" y="1" width="24" height="12" rx="2"/></svg>fabric, right side</span>
+    <span><svg width="26" height="14"><rect class="fabws" x="1" y="1" width="24" height="12" rx="2"/></svg>wrong side</span>
+    <span><svg width="26" height="14"><rect class="lining" x="1" y="1" width="24" height="12" rx="2"/></svg>lining</span>
+    <span><svg width="26" height="14"><rect class="interf" x="1" y="1" width="24" height="12" rx="2"/></svg>interfacing</span>
+    <span><svg width="26" height="14"><rect class="pad" x="1" y="1" width="24" height="12" rx="2"/></svg>pad / sleeve head</span>
+    <span><svg width="30" height="10"><path class="stitch" d="M1 5 H29"/></svg>stitching</span>
+  </div>
+</header>
+
+<h2>Fabric</h2>
+<div class="fabric-grid">
+  <div class="fcard">
+    <h3>First jacket</h3>
+    <ul>
+      <li>Linen or cotton twill — unlined / half-lined blazer</li>
+      <li>Or a boxy wool coat</li>
+      <li>Avoid slippery or pinstriped fabric</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Classic</h3>
+    <ul>
+      <li>Wool flannel</li>
+      <li>Tweed</li>
+      <li>Melton</li>
+      <li>Coating wool</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Casual outerwear</h3>
+    <ul>
+      <li>Waxed canvas</li>
+      <li>Ripstop</li>
+      <li>Twill (anorak / chore-coat)</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Lining</h3>
+    <ul>
+      <li>Bemberg rayon for blazers</li>
+      <li>Flannel-backed or quilted lining for warmth</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Assembly Order — Lined Blazer (Speed-Tailoring Method)</h2>
+
+<!-- ──────────────── STEP 1 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">1</span>Interface</div>
+    <p>This is the big decision layer. Block-fuse the fronts, facings, under collar, hems, and sleeve
+    hems with weft-insertion fusible.</p>
+    <p>Modern "speed tailoring" replaces the hand-padded chest piece with layered fusibles — full hand
+    tailoring is a separate rabbit hole.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Block-fusing weft-insertion interfacing to the jacket front, plus the facing, under collar, and hem strips, all pressed with an iron">
+      <!-- jacket front, wrong side up -->
+      <path class="fabws" d="M48 55 L96 50 Q126 58 126 98 L128 205 Q88 215 44 205 L44 120 Q46 82 48 55 Z"/>
+      <!-- interfacing fused over front + lapel area -->
+      <path class="interf" d="M52 58 L94 53 Q122 60 122 98 L123 150 L48 150 L46 118 Q47 84 52 58 Z" opacity="0.95"/>
+      <text class="slabel" x="86" y="178" text-anchor="middle">block-fuse</text>
+      <text class="slabel" x="86" y="191" text-anchor="middle">the front</text>
+      <text class="scap" x="86" y="234" text-anchor="middle">weft-insertion fusible</text>
+      <!-- facing piece -->
+      <rect class="fabws" x="206" y="150" width="38" height="58"/>
+      <rect class="interf" x="210" y="154" width="30" height="50"/>
+      <text class="slabel" x="225" y="224" text-anchor="middle">facing</text>
+      <!-- under collar piece -->
+      <path class="fabws" d="M262 168 Q300 158 338 168 L335 206 Q300 214 265 206 Z"/>
+      <path class="interf" d="M266 171 Q300 162 334 171 L331 203 Q300 209 269 203 Z"/>
+      <text class="slabel" x="300" y="224" text-anchor="middle">under collar</text>
+      <!-- iron -->
+      <path d="M250 78 L334 78 Q338 78 337 73 Q333 51 306 51 L268 51 Q253 51 250 78 Z" fill="#6b7d8f" stroke="#52616f" stroke-width="1.5"/>
+      <rect x="276" y="59" width="36" height="9" rx="4.5" fill="#faf7f2" stroke="#52616f"/>
+      <path class="lead" d="M273 86 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <path class="lead" d="M293 86 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <path class="lead" d="M313 86 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <text class="slabel" x="293" y="124" text-anchor="middle">fuse fronts, facings,</text>
+      <text class="slabel" x="293" y="137" text-anchor="middle">under collar &amp; hems</text>
+    </svg>
+    <figcaption>Block-fuse the front, facing, under collar, and hems with weft-insertion fusible.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 2 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">2</span>Shell details flat</div>
+    <ol>
+      <li>Sew darts or princess seams in the fronts.</li>
+      <li><strong>Welt or patch pockets</strong> while the fronts are still flat pieces on the table.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The flat jacket front with a princess seam and a welt pocket, alongside a separate patch pocket being topstitched on">
+      <!-- front panel right side up -->
+      <path class="fab" d="M48 55 L96 50 Q126 58 126 98 L128 205 Q88 215 44 205 L44 120 Q46 82 48 55 Z"/>
+      <!-- princess seam -->
+      <path class="stitch" d="M92 56 Q100 120 104 205"/>
+      <text class="slabel" x="150" y="70" text-anchor="start">princess</text>
+      <text class="slabel" x="150" y="83" text-anchor="start">seam / dart</text>
+      <path class="lead" d="M148 78 Q120 80 104 96" marker-end="url(#arr)"/>
+      <!-- welt pocket -->
+      <rect x="56" y="138" width="50" height="15" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1.2"/>
+      <path d="M56 145.5 H106" stroke="#5e7f9e" stroke-width="1"/>
+      <text class="slabel" x="80" y="172" text-anchor="middle">welt pocket</text>
+      <text class="scap" x="95" y="234" text-anchor="middle">pockets go on while flat</text>
+      <!-- patch pocket, right side -->
+      <rect class="fab" x="248" y="98" width="84" height="92" rx="3"/>
+      <path d="M248 116 H332" stroke="#5e7f9e" stroke-width="1.2"/>
+      <path class="stitch" d="M255 122 V182 M325 122 V182 M255 182 H325"/>
+      <text class="slabel" x="290" y="82" text-anchor="middle">patch pocket</text>
+      <text class="slabel" x="290" y="210" text-anchor="middle">topstitched on,</text>
+      <text class="slabel" x="290" y="223" text-anchor="middle">corners reinforced</text>
+    </svg>
+    <figcaption>Princess seam and welt pocket worked flat on the front, plus a topstitched patch pocket.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 3 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">3</span>Shell assembly</div>
+    <ol>
+      <li>Join the fronts to the back at the shoulders and side seams.</li>
+      <li>Press over a ham and seam roll as you go — <strong>pressing builds the jacket's shape</strong>.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The two fronts joined to the back at shoulder and side seams, shown wrong side out, with the seams pressed over a tailor's ham">
+      <!-- back -->
+      <path class="fabws" d="M120 52 L196 52 L200 188 Q160 197 116 188 Z"/>
+      <text class="slabel" x="158" y="128" text-anchor="middle">back</text>
+      <!-- left front -->
+      <path class="fabws" d="M78 56 Q56 62 56 98 L58 182 Q88 190 118 184 L120 52 Z"/>
+      <text class="slabel" x="87" y="128" text-anchor="middle">front</text>
+      <!-- right front -->
+      <path class="fabws" d="M238 56 Q260 62 260 98 L258 182 Q228 190 198 184 L196 52 Z"/>
+      <text class="slabel" x="229" y="128" text-anchor="middle">front</text>
+      <!-- join seams -->
+      <path class="stitch" d="M119 54 L119 186"/>
+      <path class="stitch" d="M197 54 L197 186"/>
+      <text class="slabel" x="158" y="44" text-anchor="middle">shoulder &amp; side seams</text>
+      <path class="lead" d="M138 47 Q128 50 121 56" marker-end="url(#arr)"/>
+      <text class="scap" x="150" y="214" text-anchor="middle">pressing builds the shape</text>
+      <!-- ham -->
+      <path d="M286 150 Q286 132 322 131 Q360 130 362 154 Q363 175 322 176 Q287 177 286 150 Z" fill="#d9c4a0" stroke="#b09a72" stroke-width="1.5"/>
+      <path class="lead" d="M292 152 Q322 144 356 154" stroke="#b09a72"/>
+      <text class="scap" x="324" y="200" text-anchor="middle">press over a ham</text>
+    </svg>
+    <figcaption>Fronts joined to back at shoulders and sides, seams pressed over a ham.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 4 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">4</span>Notched collar</div>
+    <p>The under collar attaches to the jacket's neckline; the upper collar attaches to the facings.</p>
+    <p>Then the two assemblies are joined in <strong>one continuous seam</strong> up one lapel, around
+    the collar, down the other lapel. Grade the allowances, clip the corner at the notch, press hard
+    (technique below).</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The notched collar in two stages: the under collar sewn to the jacket and the upper collar sewn to the facing, then the two units joined in one continuous seam up the lapel and around the collar with the notch clipped">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — two units</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — one seam around</text>
+      <!-- A: jacket neckline + under collar -->
+      <path class="fab" d="M38 78 Q95 68 152 78 L152 116 Q95 108 38 116 Z"/>
+      <path class="fabd" d="M55 64 Q95 54 135 64 L132 80 Q95 72 58 80 Z"/>
+      <path class="stitch" d="M58 79 Q95 71 132 79"/>
+      <text class="slabel" x="95" y="100" text-anchor="middle">jacket + under collar</text>
+      <!-- A: facing + upper collar -->
+      <path class="lining" d="M38 156 Q95 148 152 156 L152 194 Q95 186 38 194 Z"/>
+      <path class="fab" d="M55 142 Q95 132 135 142 L132 158 Q95 150 58 158 Z"/>
+      <path class="stitch" d="M58 157 Q95 149 132 157"/>
+      <text class="slabel" x="95" y="178" text-anchor="middle">facing + upper collar</text>
+      <text class="slabel" x="95" y="214" text-anchor="middle">each is one seam,</text>
+      <text class="slabel" x="95" y="227" text-anchor="middle">sewn separately</text>
+      <!-- B: front with notched lapel + collar -->
+      <!-- jacket body -->
+      <path class="fab" d="M232 110 L292 110 L298 222 Q266 230 230 222 Z"/>
+      <!-- lapel folded back -->
+      <path class="fabws" d="M292 110 L292 176 L256 132 L268 110 Z"/>
+      <!-- collar -->
+      <path class="fabd" d="M292 108 Q322 90 350 102 L342 122 Q318 110 292 122 Z"/>
+      <!-- notch clip between collar point and lapel point -->
+      <path d="M292 110 l-3 16" stroke="#5a554e" stroke-width="1.3" fill="none"/>
+      <!-- continuous seam line up lapel, around collar -->
+      <path class="stitch" d="M298 132 L292 110 Q320 96 344 106"/>
+      <text class="slabel" x="326" y="146" text-anchor="middle">notch:</text>
+      <text class="slabel" x="326" y="159" text-anchor="middle">clip &amp; grade</text>
+      <path class="lead" d="M312 144 Q302 126 294 116" marker-end="url(#arr)"/>
+      <text class="slabel" x="262" y="208" text-anchor="middle">one continuous</text>
+      <text class="slabel" x="262" y="221" text-anchor="middle">lapel-to-collar seam</text>
+    </svg>
+    <figcaption>Under collar to jacket, upper collar to facing, then the two joined in one seam with the notch clipped.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 5 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">5</span>Sleeves in the round</div>
+    <ol>
+      <li>Set two-piece sleeves in the round, caps eased.</li>
+      <li><strong>Sleeve heads</strong> and <strong>shoulder pads</strong> sewn in by hand.</li>
+    </ol>
+    <p>These two pieces of internal padding are most of what makes a blazer look tailored.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Setting a two-piece sleeve into the armhole in the round, with a shoulder pad and a sleeve-head strip hand-sewn into the cap to fill it for a smooth roll">
+      <!-- armhole with sleeve set in -->
+      <rect class="fabws" x="38" y="50" width="150" height="160"/>
+      <circle class="fab" cx="113" cy="130" r="48"/>
+      <circle class="stitch" cx="113" cy="130" r="48" fill="none"/>
+      <!-- shoulder pad wedge at top of cap -->
+      <path class="pad" d="M90 86 Q113 76 136 86 L130 98 Q113 92 96 98 Z"/>
+      <text class="slabel" x="113" y="134" text-anchor="middle">two-piece</text>
+      <text class="slabel" x="113" y="147" text-anchor="middle">sleeve, eased cap</text>
+      <text class="scap" x="113" y="232" text-anchor="middle">set in the round</text>
+      <!-- detail: cross-section of cap padding -->
+      <text class="scap" x="290" y="44" text-anchor="middle">hand-sewn at the cap</text>
+      <!-- armhole seam line -->
+      <path class="fab" d="M225 150 Q290 120 355 150 L350 166 Q290 138 230 166 Z"/>
+      <path class="stitch" d="M230 158 Q290 132 350 158"/>
+      <!-- shoulder pad -->
+      <path class="pad" d="M250 150 Q290 138 330 150 L322 130 Q290 122 258 130 Z"/>
+      <text class="slabel" x="290" y="118" text-anchor="middle">shoulder pad</text>
+      <!-- sleeve head -->
+      <path class="pad" d="M240 168 Q290 150 340 168 L338 179 Q290 162 242 179 Z" opacity="0.85"/>
+      <text class="slabel" x="290" y="198" text-anchor="middle">sleeve head fills the cap</text>
+      <text class="slabel" x="290" y="211" text-anchor="middle">for a smooth roll</text>
+    </svg>
+    <figcaption>Two-piece sleeve set in the round; shoulder pad and sleeve head hand-sewn into the cap.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 6 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">6</span>Lining unit</div>
+    <p>Assemble the whole lining as one piece — including the <strong>center-back ease pleat</strong> —
+    plus the facings.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The lining assembled as one unit with a folded center-back ease pleat and the front facings attached down each front edge">
+      <!-- lining back -->
+      <path class="lining" d="M118 52 L262 52 L270 205 Q190 215 110 205 Z"/>
+      <!-- center-back ease pleat -->
+      <rect x="184" y="52" width="12" height="153" fill="#e6d2a8" stroke="#bfa269" stroke-width="1"/>
+      <path d="M184 52 V205 M196 52 V205" stroke="#bfa269" stroke-width="1.1" fill="none"/>
+      <text class="slabel" x="190" y="42" text-anchor="middle">center-back ease pleat</text>
+      <path class="lead" d="M190 45 L190 56" marker-end="url(#arr)"/>
+      <text class="slabel" x="150" y="135" text-anchor="middle">lining</text>
+      <!-- facings -->
+      <path class="fab" d="M110 205 L118 52 L98 56 Q86 62 88 122 L96 200 Z"/>
+      <path class="fab" d="M270 205 L262 52 L282 56 Q294 62 292 122 L284 200 Z"/>
+      <path class="stitch" d="M117 56 L111 200 M263 56 L269 200"/>
+      <text class="slabel" x="90" y="226" text-anchor="middle">facing</text>
+      <text class="slabel" x="290" y="226" text-anchor="middle">facing</text>
+      <text class="scap" x="190" y="243" text-anchor="middle">assemble the whole lining as one piece</text>
+    </svg>
+    <figcaption>Lining assembled as one unit with the center-back ease pleat and the front facings.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 7 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">7</span>Bag the lining</div>
+    <ol>
+      <li>Machine-sew the lining to the jacket around every edge — facings, back neck, hems.</li>
+      <li>Pull it right side out through a gap left in one lining sleeve seam (technique below).</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Bagging the lining: the lining sewn to the jacket right sides together around all edges with a gap left in one lining sleeve seam, then the whole jacket pulled right side out through that gap">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — sew every edge</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — pull through the gap</text>
+      <!-- A: jacket + lining stacked, RST -->
+      <path class="fab" d="M40 58 L150 58 L156 196 Q98 206 34 196 Z"/>
+      <path class="lining" d="M50 64 L140 64 L145 188 Q98 196 45 188 Z" opacity="0.92"/>
+      <path class="stitch" d="M40 60 L150 60 M40 58 L34 196 M150 58 L156 196 M34 196 Q98 206 156 196"/>
+      <text class="slabel" x="95" y="118" text-anchor="middle">lining to jacket,</text>
+      <text class="slabel" x="95" y="131" text-anchor="middle">right sides together</text>
+      <!-- sleeve seam with gap -->
+      <rect class="lining" x="58" y="206" width="74" height="22" rx="3"/>
+      <path class="stitch" d="M62 217 H92"/>
+      <path d="M100 217 H128" stroke="#b8434e" stroke-width="1.6" stroke-dasharray="2 3"/>
+      <text class="slabel" x="142" y="214" text-anchor="start">gap in</text>
+      <text class="slabel" x="142" y="227" text-anchor="start">sleeve seam</text>
+      <!-- B: jacket turning right side out through the gap -->
+      <path class="fab" d="M228 72 L334 72 L340 176 Q288 185 224 176 Z"/>
+      <ellipse cx="284" cy="206" rx="26" ry="12" fill="#f0e0bd" stroke="#bfa269" stroke-width="1.5"/>
+      <path d="M284 182 C 320 152, 250 122, 250 102" fill="none" stroke="#b8434e" stroke-width="1.8" marker-end="url(#arrR)"/>
+      <text class="slabel" x="306" y="150" text-anchor="middle">it feels</text>
+      <text class="slabel" x="306" y="163" text-anchor="middle">like magic</text>
+      <text class="slabel" x="284" y="227" text-anchor="middle">pull it all through,</text>
+      <text class="slabel" x="284" y="240" text-anchor="middle">then close the gap</text>
+    </svg>
+    <figcaption>Lining sewn to the jacket around every edge, then pulled right side out through a gap in a lining sleeve seam.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 8 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">8</span>Buttonholes, buttons, final press</div>
+    <ul>
+      <li>Keyhole buttonholes if your machine does them.</li>
+      <li>A hard final press with a <strong>clapper</strong> sets everything.</li>
+    </ul>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Finishing the jacket: a keyhole buttonhole, a sewn-on button, and a hard final press set with a clapper">
+      <!-- col 1: keyhole buttonhole -->
+      <rect class="fab" x="40" y="55" width="78" height="150" rx="2"/>
+      <circle cx="79" cy="98" r="6.5" fill="none" stroke="#b8434e" stroke-width="1.6"/>
+      <path class="stitch" d="M73 100 V152 M85 100 V152"/>
+      <text class="scap" x="79" y="228" text-anchor="middle">keyhole buttonhole</text>
+      <!-- col 2: button -->
+      <rect class="fab" x="148" y="55" width="78" height="150" rx="2"/>
+      <circle cx="187" cy="122" r="17" fill="#e8e2d4" stroke="#b09a72" stroke-width="1.5"/>
+      <circle cx="181" cy="116" r="1.9" fill="#7d838a"/>
+      <circle cx="193" cy="116" r="1.9" fill="#7d838a"/>
+      <circle cx="181" cy="128" r="1.9" fill="#7d838a"/>
+      <circle cx="193" cy="128" r="1.9" fill="#7d838a"/>
+      <text class="scap" x="187" y="228" text-anchor="middle">sew on buttons</text>
+      <!-- col 3: clapper -->
+      <rect class="fab" x="258" y="128" width="92" height="42"/>
+      <rect x="266" y="100" width="76" height="24" rx="4" fill="#caa46a" stroke="#9a7b46" stroke-width="1.5"/>
+      <path class="lead" d="M304 82 V98" marker-end="url(#arr)"/>
+      <text class="slabel" x="304" y="76" text-anchor="middle">slam &amp; hold until cool</text>
+      <text class="scap" x="304" y="196" text-anchor="middle">clapper sets a</text>
+      <text class="scap" x="304" y="210" text-anchor="middle">crisp final press</text>
+    </svg>
+    <figcaption>Keyhole buttonholes, buttons, and a hard final press set with a clapper.</figcaption>
+  </figure>
+</div>
+
+<h2>Key Techniques</h2>
+
+<div class="tech">
+  <h3>The notched collar</h3>
+  <p>The under collar attaches to the jacket's neckline; the upper collar attaches to the front facings.
+  Then the two assemblies are joined in one continuous seam up one lapel, around the collar, down the
+  other lapel. Grade the seam allowances, clip the corner at the notch, and press hard. The key fit
+  detail: the upper collar and the lapel side that shows must be fractionally larger (turn of cloth),
+  and the roll line should be <em>pressed in — not creased</em> — over a ham.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 170" role="img" aria-label="Turn of cloth at the lapel: the upper collar and lapel cut fractionally larger so the seam rolls to the underside, and the roll line pressed over a ham rather than creased flat">
+      <text class="scap" x="120" y="30" text-anchor="middle">turn of cloth</text>
+      <!-- under layer -->
+      <path class="fabd" d="M44 72 Q120 44 196 72 L192 88 Q120 60 48 88 Z"/>
+      <!-- upper layer slightly larger, rolling over -->
+      <path class="fab" d="M40 80 Q120 48 200 80 L196 98 Q120 68 44 98 Z" opacity="0.95"/>
+      <path class="stitch" d="M44 86 Q120 58 196 86"/>
+      <text class="slabel" x="120" y="124" text-anchor="middle">upper layer cut larger —</text>
+      <text class="slabel" x="120" y="137" text-anchor="middle">seam rolls to the underside</text>
+      <!-- roll line over ham -->
+      <text class="scap" x="300" y="30" text-anchor="middle">press the roll line</text>
+      <path d="M248 124 Q300 96 352 124" fill="none" stroke="#d9c4a0" stroke-width="12" stroke-linecap="round"/>
+      <path class="fab" d="M250 108 Q300 82 350 108 L348 118 Q300 92 252 118 Z"/>
+      <text class="slabel" x="300" y="150" text-anchor="middle">roll it over a ham —</text>
+      <text class="slabel" x="300" y="163" text-anchor="middle">don't crease it flat</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Bagging the lining</h3>
+  <p>The commercial method that eliminates nearly all hand sewing:</p>
+  <ol>
+    <li>Sew the lining+facing unit to the jacket around the facings and back neck.</li>
+    <li>Sew the jacket hem to the lining hem, right sides together (this feels wrong; trust it).</li>
+    <li>Sew each sleeve hem to its lining sleeve.</li>
+    <li>Pull the whole jacket through the gap you left in one lining sleeve seam, then close the gap.</li>
+  </ol>
+  <p>It feels like magic the first time. Grainline's tutorial is the cleanest explanation of the concept;
+  Closet Core's Clare and Kelly sewalongs show it on a real coat and anorak with photos at every step.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 170" role="img" aria-label="Bagging the lining at the hem: jacket hem and lining hem sewn right sides together, which after turning leaves the lining sitting shorter and forms an ease pleat">
+      <text class="scap" x="95" y="28" text-anchor="middle">sew hem to hem, RST</text>
+      <rect class="fab" x="38" y="46" width="112" height="15"/>
+      <rect class="lining" x="38" y="61" width="112" height="15"/>
+      <path class="stitch" d="M42 76 H150"/>
+      <text class="slabel" x="94" y="100" text-anchor="middle">jacket hem + lining hem</text>
+      <text class="slabel" x="94" y="113" text-anchor="middle">(feels wrong — trust it)</text>
+      <path class="lead" d="M168 76 H208" marker-end="url(#arr)"/>
+      <text class="scap" x="290" y="28" text-anchor="middle">turned — lining sits shorter</text>
+      <rect class="fab" x="234" y="58" width="112" height="42"/>
+      <rect class="lining" x="234" y="100" width="112" height="20"/>
+      <path d="M234 100 q14 -9 28 0 q14 -9 28 0 q14 -9 28 0 q14 -9 28 0" fill="none" stroke="#bfa269" stroke-width="1.4"/>
+      <text class="slabel" x="290" y="142" text-anchor="middle">ease pleat at the hem</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Pressing equipment matters here</h3>
+  <p>A <strong>tailor's ham</strong> (curved seams, darts, collar roll), <strong>seam roll</strong>
+  (sleeve seams without imprints), <strong>clapper</strong> (crisp wool edges — press with steam, slam
+  the clapper on, hold until cool), and <strong>point presser</strong> (collar points). For wool, you
+  press more than you sew.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 160" role="img" aria-label="The pressing tools for tailoring laid out: a tailor's ham, a seam roll, a clapper block, and a point presser">
+      <!-- ham -->
+      <ellipse cx="58" cy="62" rx="38" ry="26" fill="#d9c4a0" stroke="#b09a72" stroke-width="1.5"/>
+      <path class="lead" d="M28 56 Q58 46 88 56" stroke="#b09a72"/>
+      <text class="slabel" x="58" y="112" text-anchor="middle">ham</text>
+      <!-- seam roll -->
+      <rect x="126" y="44" width="74" height="36" rx="18" fill="#d9c4a0" stroke="#b09a72" stroke-width="1.5"/>
+      <text class="slabel" x="163" y="112" text-anchor="middle">seam roll</text>
+      <!-- clapper -->
+      <rect x="226" y="42" width="42" height="40" rx="5" fill="#caa46a" stroke="#9a7b46" stroke-width="1.5"/>
+      <text class="slabel" x="247" y="112" text-anchor="middle">clapper</text>
+      <!-- point presser -->
+      <path d="M298 82 L356 82 L330 44 Z" fill="#caa46a" stroke="#9a7b46" stroke-width="1.5"/>
+      <text class="slabel" x="328" y="112" text-anchor="middle">point presser</text>
+      <text class="scap" x="190" y="146" text-anchor="middle">for wool, you press more than you sew</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Hong Kong finish (unlined jackets)</h3>
+  <p>If you skip the lining, bind every visible seam allowance in bias strips — slower than lining, but
+  the inside becomes a feature.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 150" role="img" aria-label="Hong Kong seam finish: a bias strip folded over each raw seam-allowance edge and stitched down, leaving a clean bound edge inside an unlined jacket">
+      <text class="scap" x="190" y="28" text-anchor="middle">bind every raw allowance in bias</text>
+      <!-- seam allowance -->
+      <rect class="fab" x="116" y="50" width="146" height="24"/>
+      <text class="slabel" x="178" y="66" text-anchor="middle">seam allowance</text>
+      <!-- bias strip wrapping the right raw edge -->
+      <path class="lining" d="M262 42 q20 0 20 20 q0 20 -20 20 l-12 0 l0 -8 l11 0 q10 0 10 -12 q0 -12 -10 -12 l-11 0 l0 -8 z"/>
+      <path class="stitch" d="M251 50 V74"/>
+      <text class="slabel" x="306" y="98" text-anchor="middle">bias-bound edge</text>
+      <path class="lead" d="M300 90 Q292 82 286 74" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="136" text-anchor="middle">the inside becomes a feature</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Serger Notes</h2>
+<div class="tech">
+  <ul>
+    <li><strong>Lined jackets:</strong> serging is mostly unnecessary (everything is enclosed), but
+    serging the hem edges of loosely woven wool stops fraying during construction.</li>
+    <li><strong>Unlined / casual jackets:</strong> serge or Hong Kong every exposed allowance.</li>
+  </ul>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://mellysews.com/how-to-sew-a-blazer-lining-and-finishing/">How to Sew a Blazer: Lining and Finishing — Melly Sews</a></li>
+  <li><a href="https://patternscissorscloth.com/2011/04/29/rtw-tailoring-sewalong-14-inserting-the-lining/">RTW Tailoring Sewalong #14: Inserting the Lining — Pattern Scissors Cloth</a></li>
+  <li><a href="https://www.threadsmagazine.com/2008/11/01/bag-your-jacket-lining">Bag Your Jacket Lining — Threads Magazine</a></li>
+  <li><a href="https://grainlinestudio.com/blogs/blog/sewing-tutorial-how-to-bag-a-jacket-lining">How to Bag a Jacket Lining — Grainline Studio</a></li>
+  <li><a href="https://blog.closetcorepatterns.com/bagging-jacket-lining-lined-version-kelly-anorak-sewalong/">Bagging the Jacket Lining (Kelly Anorak Sewalong) — Closet Core Patterns</a></li>
+  <li><a href="https://blog.closetcorepatterns.com/clare-sewalong-bagging-a-coat-lining/">Bagging a Coat Lining (Clare Coat Sewalong) — Closet Core Patterns</a></li>
+  <li><a href="https://www.seamwork.com/sewing-tutorials/a-lesson-in-lining">How to Draft a Lining for a Jacket or Coat — Seamwork</a></li>
+  <li><a href="https://www.ninalee.co.uk/blogs/blog/the-richmond-sew-along-attaching-the-lining-and-finishing-the-jacket">The Richmond Sew-Along: Attaching the Lining and Finishing — Nina Lee</a></li>
+</ul>
+
+<footer>Diagrams informed by the Grainline Studio, Closet Core, and Melly Sews tutorials above · 2026-06-11</footer>
+
+</main>
+</body>
+</html>

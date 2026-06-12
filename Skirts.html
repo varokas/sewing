@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skirts — Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 22px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .legend svg { vertical-align: -4px; margin-right: 6px; }
+
+  /* fabric cards */
+  .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .fabric-grid { grid-template-columns: 1fr; } }
+  .fcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .fcard h3 { margin-top: 0; }
+  .fcard ul { margin: 6px 0 0; padding-left: 20px; }
+  .fabric-note { color: var(--muted); font-style: italic; margin-top: 12px; }
+
+  /* step cards */
+  .step {
+    display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; margin: 16px 0;
+    break-inside: avoid;
+  }
+  @media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+  .step .text { min-width: 0; }
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+    margin-right: 10px; flex: none;
+  }
+  .steptitle { display: flex; align-items: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { margin: 6px 0; }
+  .step ol, .step ul { margin: 4px 0 10px; padding-left: 22px; }
+  .step li { margin: 3px 0; }
+  .step figure { margin: 0; align-self: center; }
+  .step svg, .mini svg { width: 100%; height: auto; display: block; }
+  .step figcaption { display: none; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+  .mini { max-width: 560px; margin: 14px auto 4px; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+  .sources .blocked { color: var(--muted); font-size: .85rem; }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .interf { fill: url(#dots); stroke: #a89f8d; stroke-width: 1; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .stitch-old { fill: none; stroke: #b8434e; stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .4; }
+  .coil   { fill: none; stroke: #7c4a5e; stroke-width: 3; stroke-dasharray: 2.5 2.5; }
+  .tape   { fill: #e3c1cc; stroke: #b58e9c; stroke-width: 1; }
+  .metal  { fill: #b9bec4; stroke: #7d838a; stroke-width: 1; }
+  .lead   { fill: none; stroke: #9a948a; stroke-width: 1.2; }
+  .guide  { fill: none; stroke: #9a948a; stroke-width: 1; stroke-dasharray: 7 4 2 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+  .slabel { font: 11px -apple-system, "Segoe UI", sans-serif; fill: #5a554e; }
+  .scap   { font: 600 11.5px -apple-system, "Segoe UI", sans-serif; fill: #3a3733; }
+  svg text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+
+  @media print {
+    body { background: #fff; }
+    .step, .tech, .fcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html">Home</a>
+    <a class="navlink" href="Tops and Shirts.html">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html">Pants</a>
+    <a class="navlink" href="Skirts.html" aria-current="page">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html">Knits</a>
+  </div>
+</nav>
+
+<!-- shared defs for all inline SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#eee8dc"/>
+      <circle cx="2.5" cy="2.5" r="1.1" fill="#a59a83"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b665e"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b8434e"/>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+<header>
+  <h1>Skirts</h1>
+  <p class="intro">The fastest route from fabric to wearable garment, and the best place to learn
+  zippers and waistbands before they reappear in <a class="pagelink" href="Dresses.html">Dresses</a> and
+  <a class="pagelink" href="Pants and Shorts.html">Pants and Shorts</a>. Part of the <a class="pagelink" href="index.html">Sewing Manual</a>.</p>
+
+  <div class="legend">
+    <span><svg width="26" height="14"><rect class="fab" x="1" y="1" width="24" height="12" rx="2"/></svg>fabric, right side</span>
+    <span><svg width="26" height="14"><rect class="fabws" x="1" y="1" width="24" height="12" rx="2"/></svg>wrong side</span>
+    <span><svg width="26" height="14"><rect class="interf" x="1" y="1" width="24" height="12" rx="2"/></svg>interfacing</span>
+    <span><svg width="30" height="10"><path class="stitch" d="M1 5 H29"/></svg>stitching</span>
+    <span><svg width="30" height="10"><path class="coil" d="M1 5 H29"/></svg>zipper coil</span>
+  </div>
+</header>
+
+<h2>Fabric</h2>
+<div class="fabric-grid">
+  <div class="fcard">
+    <h3>Easy</h3>
+    <ul>
+      <li>Cotton twill</li>
+      <li>Denim</li>
+      <li>Linen</li>
+      <li>Ponte (for pull-on styles)</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Drapey</h3>
+    <ul>
+      <li>Rayon challis</li>
+      <li>Crepe</li>
+      <li>Tencel twill</li>
+      <li>— for gathered and bias styles</li>
+    </ul>
+  </div>
+</div>
+<p class="fabric-note">A-line and pencil skirts want fabric with body; gathered and circle skirts want drape.</p>
+
+<h2>Assembly Order — Zippered Skirt with Waistband</h2>
+
+<!-- ──────────────── STEP 1 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">1</span>Staystitch &amp; interface</div>
+    <p>Staystitch the waist edge of front and back so the curve can't stretch out of shape —
+    sew from each side toward the center.</p>
+    <p>Fuse interfacing to the full waistband before construction.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Staystitching a skirt panel waist edge and fusing interfacing to the waistband">
+      <!-- skirt panel -->
+      <path class="fab" d="M45 75 Q 100 85 155 75 L 172 200 Q 100 214 28 200 Z"/>
+      <path class="stitch" d="M52 84 Q 100 92 148 84"/>
+      <path class="lead" d="M58 97 Q 76 101 92 102" marker-end="url(#arr)"/>
+      <path class="lead" d="M142 97 Q 124 101 108 102" marker-end="url(#arr)"/>
+      <text class="slabel" x="100" y="122" text-anchor="middle">sew from each side</text>
+      <text class="slabel" x="100" y="135" text-anchor="middle">toward center</text>
+      <text class="scap" x="100" y="232" text-anchor="middle">staystitch waist edge ½″ in</text>
+      <!-- iron -->
+      <path d="M245 106 L329 106 Q333 106 332 101 Q328 79 301 79 L263 79 Q248 79 245 106 Z" fill="#6b7d8f" stroke="#52616f" stroke-width="1.5"/>
+      <rect x="271" y="87" width="36" height="9" rx="4.5" fill="var(--bg, #faf7f2)" stroke="#52616f"/>
+      <path class="lead" d="M268 114 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <path class="lead" d="M288 114 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <path class="lead" d="M308 114 q3 5 0 9 q-3 5 0 9" stroke="#d49a6a"/>
+      <!-- waistband -->
+      <rect class="fab" x="215" y="150" width="150" height="36" rx="2"/>
+      <rect class="interf" x="220" y="155" width="140" height="26"/>
+      <text class="scap" x="290" y="208" text-anchor="middle">fuse interfacing</text>
+      <text class="scap" x="290" y="222" text-anchor="middle">to the full band</text>
+    </svg>
+    <figcaption>Staystitch the waist; fuse interfacing to the waistband.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 2 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">2</span>Darts</div>
+    <p>Sew the darts and press them toward center back / center front over a ham,
+    so the pressed shape stays curved like the body.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Skirt panel with two darts pressed toward center back over a tailor's ham">
+      <!-- panel -->
+      <path class="fab" d="M95 70 Q 190 80 285 70 L 302 175 Q 190 188 78 175 Z"/>
+      <!-- CB line -->
+      <path class="guide" d="M190 80 L190 183"/>
+      <text class="slabel" x="190" y="64" text-anchor="middle">CB</text>
+      <!-- dart 1 -->
+      <path d="M132 74 L148 75 L140 132 Z" fill="#6f8db0" opacity="0.45"/>
+      <path class="stitch" d="M132 74 L140 132 M148 75 L140 132"/>
+      <!-- dart 2 -->
+      <path d="M232 75 L248 74 L240 132 Z" fill="#6f8db0" opacity="0.45"/>
+      <path class="stitch" d="M232 75 L240 132 M248 74 L240 132"/>
+      <!-- press arrows -->
+      <path class="lead" d="M152 106 Q 166 102 178 104" marker-end="url(#arr)"/>
+      <path class="lead" d="M228 106 Q 214 102 202 104" marker-end="url(#arr)"/>
+      <text class="slabel" x="190" y="158" text-anchor="middle">press toward CB</text>
+      <!-- ham -->
+      <path d="M268 204 Q 268 188 302 187 Q 342 186 344 209 Q 345 228 306 229 Q 269 230 268 204 Z"
+            fill="#d9c4a0" stroke="#b09a72" stroke-width="1.5"/>
+      <path class="lead" d="M274 206 Q 306 199 340 209" stroke="#b09a72"/>
+      <text class="scap" x="306" y="245" text-anchor="middle">press over a ham</text>
+      <text class="scap" x="120" y="240" text-anchor="middle">sew darts front &amp; back</text>
+    </svg>
+    <figcaption>Darts sewn and pressed toward center back over a ham.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 3 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">3</span>Seams &amp; pockets</div>
+    <ol>
+      <li>Sew the seams, adding in-seam pockets as you go.</li>
+      <li><strong>Leave the zipper seam</strong> (center back or left side) <strong>open above the notch.</strong></li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Skirt panels right sides together with side seams sewn, pocket bag, and zipper opening left open above the notch">
+      <!-- panel, wrong side out -->
+      <path class="fabws" d="M95 60 Q 190 70 285 60 L 312 210 Q 190 224 68 210 Z"/>
+      <!-- right seam, fully stitched -->
+      <path class="stitch" d="M281 68 L305 203"/>
+      <!-- left seam: open wedge above notch -->
+      <path d="M95 60 L84 120 L89 120 L99 60 Z" fill="#faf7f2" stroke="#8fa3b8" stroke-width="1"/>
+      <path d="M86 119 l8 2 l-6 6 z" fill="none" stroke="#5a554e" stroke-width="1.3"/>
+      <path class="stitch" d="M88 126 L77 203"/>
+      <text class="slabel" x="10" y="78">leave open</text>
+      <text class="slabel" x="10" y="91">above notch</text>
+      <text class="slabel" x="10" y="104">(zipper)</text>
+      <path class="lead" d="M58 96 Q 74 100 84 104" marker-end="url(#arr)"/>
+      <!-- pocket bag -->
+      <path class="fabws" d="M291 92 Q 345 86 349 120 Q 352 152 301 150" fill="#eef3f8"/>
+      <path class="stitch" d="M291 92 Q 345 86 349 120 Q 352 152 301 150"/>
+      <text class="slabel" x="330" y="188" text-anchor="middle">in-seam</text>
+      <text class="slabel" x="330" y="201" text-anchor="middle">pocket bag</text>
+      <path class="lead" d="M330 178 Q 332 168 334 158" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="46" text-anchor="middle">right sides together — wrong side facing you</text>
+      <text class="scap" x="190" y="243" text-anchor="middle">sew seams, catching pocket bags in the side seams</text>
+    </svg>
+    <figcaption>Seams sewn right sides together; zipper seam open above the notch.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 4 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">4</span>Zipper</div>
+    <p><strong>Invisible</strong> — the default; goes in <em>before</em> the rest of that seam is sewn
+    (full technique in <a class="pagelink" href="Dresses.html">Dresses</a>):</p>
+    <ol>
+      <li>Open seam — don't sew it yet.</li>
+      <li>Lay the zipper face down on the right side, coil on the seamline.</li>
+      <li>Stitch beside the coil until the foot hits the slider; backstitch.</li>
+      <li>Close the zipper, then sew the seam below — start just above the last zipper stitches.</li>
+    </ol>
+    <p><strong>Regular zipper</strong> (lapped or centered):</p>
+    <ol>
+      <li>Sew the seam first.</li>
+      <li>Baste the opening.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two stages of invisible zipper installation: stitching each tape face down on the right side, then closing the seam below">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="95" y="40" text-anchor="middle">A — install each side</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — close seam below</text>
+      <!-- A: fabric right side up -->
+      <rect class="fab" x="25" y="60" width="115" height="150"/>
+      <!-- zipper tape face down, overlapping the seam edge -->
+      <rect class="tape" x="112" y="52" width="34" height="142" opacity="0.93"/>
+      <path class="coil" d="M126 56 L126 190"/>
+      <path class="stitch" d="M123.5 60 L123.5 176"/>
+      <circle cx="123.5" cy="176" r="2.6" fill="#b8434e"/>
+      <!-- slider, face down -->
+      <path d="M120 182 L132 182 L129 194 L123 194 Z" class="metal"/>
+      <text class="slabel" x="95" y="224" text-anchor="middle">zipper face down on right side;</text>
+      <text class="slabel" x="95" y="237" text-anchor="middle">stitch beside coil, stop at slider</text>
+      <!-- B: panels right sides together -->
+      <rect class="fabws" x="215" y="60" width="65" height="150"/>
+      <rect class="fabws" x="280" y="60" width="65" height="150"/>
+      <!-- zipper already stitched in, top part -->
+      <path class="coil" d="M280 62 L280 124" opacity="0.8"/>
+      <path class="stitch-old" d="M283 62 L283 124"/>
+      <!-- tail flipped aside -->
+      <rect class="tape" x="272" y="124" width="15" height="40" transform="rotate(30 280 124)"/>
+      <!-- new seam -->
+      <circle cx="277" cy="119" r="2.6" fill="#b8434e"/>
+      <path class="stitch" d="M277 119 L277 200" marker-end="url(#arrR)"/>
+      <text class="slabel" x="250" y="110" text-anchor="end">start just above</text>
+      <text class="slabel" x="250" y="123" text-anchor="end">zipper stitches</text>
+      <path class="lead" d="M252 116 Q 266 116 272 118" marker-end="url(#arr)"/>
+      <text class="slabel" x="285" y="224" text-anchor="middle">flip zipper tail aside; sew the</text>
+      <text class="slabel" x="285" y="237" text-anchor="middle">seam from zipper down to hem</text>
+    </svg>
+    <figcaption>Invisible zipper: install each tape on the open seam, then close the seam below.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 5 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">5</span>Waistband</div>
+    <ol>
+      <li>Attach the interfaced band right sides together.</li>
+      <li>Fold over and finish — full technique below.</li>
+    </ol>
+    <p>Alternative: a faced waist (no band) uses a shaped facing understitched so it stays inside.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Waistband sewn right sides together to the skirt with an overlap past the zipper, and a cross-section of the finished ditch-stitched band">
+      <!-- main view -->
+      <rect class="fab" x="35" y="130" width="195" height="85"/>
+      <path class="coil" d="M38 136 L38 208" opacity="0.7"/>
+      <circle cx="44" cy="142" r="3" fill="none" stroke="#7c4a5e" stroke-width="1.5"/>
+      <text class="slabel" x="52" y="205">zipper</text>
+      <!-- band flipped up, wrong side / interfacing showing -->
+      <rect class="fabws" x="20" y="84" width="212" height="42"/>
+      <rect class="interf" x="24" y="88" width="204" height="32"/>
+      <path class="stitch" d="M35 126 L230 126"/>
+      <!-- notch ticks -->
+      <path class="lead" d="M90 122 V132 M135 122 V132 M182 122 V132"/>
+      <text class="slabel" x="104" y="64" text-anchor="middle">overlap end extends past zipper</text>
+      <path class="lead" d="M64 68 Q 40 70 28 80" marker-end="url(#arr)"/>
+      <text class="scap" x="126" y="238" text-anchor="middle">sew band on, right sides together</text>
+      <!-- cross-section inset -->
+      <text class="scap" x="316" y="62" text-anchor="middle">cross-section</text>
+      <!-- skirt -->
+      <path d="M315 150 L315 215" stroke="#8fa9c9" stroke-width="8" fill="none"/>
+      <!-- seam allowances pushed up into band -->
+      <path d="M315 150 L315 118" stroke="#c3d2e2" stroke-width="4" fill="none"/>
+      <!-- band folded over -->
+      <path d="M306 150 L306 100 Q306 88 315.5 88 Q325 88 325 100 L325 148"
+            stroke="#8fa9c9" stroke-width="8" fill="none"/>
+      <!-- serged inner edge -->
+      <path class="serge" d="M321 148 l7 3 l-7 3 l7 3"/>
+      <!-- ditch stitch -->
+      <path d="M311 142 L311 162" stroke="#b8434e" stroke-width="2"/>
+      <circle cx="311" cy="142" r="2.2" fill="#b8434e"/>
+      <circle cx="311" cy="162" r="2.2" fill="#b8434e"/>
+      <text class="slabel" x="316" y="232" text-anchor="middle">ditch-stitch from right side</text>
+      <text class="slabel" x="316" y="245" text-anchor="middle">catches inner edge below</text>
+    </svg>
+    <figcaption>Waistband sewn right sides together, then folded over and ditch-stitched.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 6 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">6</span>Closure</div>
+    <p>Sew a hook-and-bar above the zipper on the waistband overlap: hook on the underside
+    of the overlap end, bar on the underlap, so the band closes flat and takes the strain off the zipper.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Waistband overlap with hook on its underside and bar on the underlap, above the invisible zipper">
+      <!-- underlap band -->
+      <rect class="fab" x="70" y="95" width="240" height="48"/>
+      <!-- bar on underlap -->
+      <rect class="metal" x="166" y="115" width="17" height="9" rx="4.5"/>
+      <circle cx="170" cy="119.5" r="1.2" fill="#7d838a"/>
+      <circle cx="179" cy="119.5" r="1.2" fill="#7d838a"/>
+      <!-- overlap on top -->
+      <rect class="fabd" x="48" y="92" width="105" height="54"/>
+      <rect x="52" y="96" width="97" height="46" fill="none" class="stitch"/>
+      <!-- hook hidden under overlap -->
+      <path d="M130 113 q14 0 14 7 q0 7 -9 7" fill="none" stroke="#7d838a" stroke-width="2.5"
+            stroke-dasharray="4 3" opacity="0.75"/>
+      <!-- zipper below the band -->
+      <path class="coil" d="M155 145 L155 215"/>
+      <circle cx="155" cy="152" r="3" fill="none" stroke="#7c4a5e" stroke-width="1.5"/>
+      <!-- closing arrow -->
+      <path class="lead" d="M128 82 Q 158 64 174 106" marker-end="url(#arr)"/>
+      <!-- labels -->
+      <text class="slabel" x="84" y="78">overlap</text>
+      <text class="slabel" x="240" y="78">underlap</text>
+      <text class="slabel" x="60" y="170">hook sewn under</text>
+      <text class="slabel" x="60" y="183">the overlap end</text>
+      <path class="lead" d="M104 158 Q 120 150 130 132" marker-end="url(#arr)"/>
+      <text class="slabel" x="226" y="160">bar on underlap</text>
+      <path class="lead" d="M224 154 Q 200 142 186 126" marker-end="url(#arr)"/>
+      <text class="slabel" x="172" y="208">invisible zipper</text>
+      <text class="scap" x="190" y="242" text-anchor="middle">hook-and-bar above the zipper</text>
+    </svg>
+    <figcaption>Hook-and-bar closure on the waistband overlap, above the zipper.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 7 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">7</span>Hem</div>
+    <ul>
+      <li><strong>Casual</strong>: double-fold, topstitched.</li>
+      <li><strong>Dressy</strong>: blind hem or hand catch-stitch.</li>
+      <li>Let bias/circle skirts hang a day before hemming.</li>
+    </ul>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Three hem options: double-fold topstitched, blind hem, and hanging a circle skirt before hemming">
+      <!-- col 1: double-fold topstitch -->
+      <rect class="fab" x="30" y="60" width="90" height="125"/>
+      <rect class="fabd" x="30" y="152" width="90" height="33"/>
+      <path class="stitch" d="M34 160 L116 160"/>
+      <text class="scap" x="75" y="208" text-anchor="middle">double-fold,</text>
+      <text class="scap" x="75" y="222" text-anchor="middle">topstitched</text>
+      <text class="slabel" x="75" y="237" text-anchor="middle">casual</text>
+      <!-- col 2: blind hem -->
+      <rect class="fab" x="145" y="60" width="90" height="125"/>
+      <path class="guide" d="M147 152 L233 152" opacity="0.6"/>
+      <circle cx="155" cy="160" r="1.3" fill="#b8434e"/>
+      <circle cx="169" cy="160" r="1.3" fill="#b8434e"/>
+      <circle cx="183" cy="160" r="1.3" fill="#b8434e"/>
+      <circle cx="197" cy="160" r="1.3" fill="#b8434e"/>
+      <circle cx="211" cy="160" r="1.3" fill="#b8434e"/>
+      <circle cx="225" cy="160" r="1.3" fill="#b8434e"/>
+      <text class="scap" x="190" y="208" text-anchor="middle">blind hem /</text>
+      <text class="scap" x="190" y="222" text-anchor="middle">catch-stitch</text>
+      <text class="slabel" x="190" y="237" text-anchor="middle">dressy</text>
+      <!-- col 3: hang first -->
+      <path d="M305 58 q0 -10 8 -10 q9 0 9 8" fill="none" stroke="#7d838a" stroke-width="2.5"/>
+      <path d="M264 92 L305 60 L346 92 Z" fill="none" stroke="#7d838a" stroke-width="2.5" stroke-linejoin="round"/>
+      <path class="fab" d="M276 92 Q 305 100 334 92 L 354 178 Q 305 194 256 178 Z"/>
+      <circle cx="352" cy="120" r="12" fill="#fff" stroke="#7d838a" stroke-width="1.5"/>
+      <path d="M352 120 L352 112 M352 120 L358 122" stroke="#7d838a" stroke-width="1.5"/>
+      <text class="scap" x="305" y="208" text-anchor="middle">bias &amp; circle skirts:</text>
+      <text class="scap" x="305" y="222" text-anchor="middle">hang a day first</text>
+      <text class="slabel" x="305" y="237" text-anchor="middle">trim level, then hem</text>
+    </svg>
+    <figcaption>Hem options: double-fold topstitch, blind hem, and hanging bias skirts first.</figcaption>
+  </figure>
+</div>
+
+<h2>Key Techniques</h2>
+
+<div class="tech">
+  <h3>The waistband</h3>
+  <ol>
+    <li>Cut interfacing for the full band; fuse before construction.</li>
+    <li>Sew the band to the skirt right sides together, matching notches, with the band's overlap end extending past the zipper on one side.</li>
+    <li>Sew the short ends, clip corners, turn, and press.</li>
+    <li>Finish, either way:
+      <ul>
+        <li>Press the inner edge under and stitch in the ditch from the right side, catching the fold underneath.</li>
+        <li>Serge the inner edge flat and ditch-stitch through it — less bulk, faster.</li>
+      </ul>
+    </li>
+  </ol>
+  <p>The Threads article covers getting clean, square corners at the zipper opening — the spot that separates tidy from sloppy.</p>
+</div>
+
+<div class="tech">
+  <h3>Zipper choice</h3>
+  <ul>
+    <li><strong>Invisible</strong>: cleanest look, goes in before the seam — the default for skirts.</li>
+    <li><strong>Lapped</strong>: sturdier and more traditional, a fold of fabric covers the zipper; good for wool and vintage styles.</li>
+    <li><strong>Exposed metal</strong>: a design feature on denim skirts.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 175" role="img" aria-label="Three zipper styles seen from outside: invisible, lapped, exposed metal">
+      <!-- invisible -->
+      <rect class="fab" x="30" y="28" width="90" height="112"/>
+      <path d="M75 28 L75 140" stroke="#5e7f9e" stroke-width="1.4"/>
+      <circle cx="75" cy="38" r="3" fill="none" stroke="#52616f" stroke-width="1.5"/>
+      <path d="M75 41 L75 50" stroke="#52616f" stroke-width="2"/>
+      <text class="scap" x="75" y="158" text-anchor="middle">invisible</text>
+      <!-- lapped -->
+      <rect class="fab" x="145" y="28" width="90" height="112"/>
+      <rect class="fabd" x="145" y="28" width="52" height="112"/>
+      <path class="stitch" d="M190 30 L190 138"/>
+      <circle cx="200" cy="36" r="3" fill="none" stroke="#52616f" stroke-width="1.5"/>
+      <text class="scap" x="190" y="158" text-anchor="middle">lapped</text>
+      <!-- exposed metal -->
+      <rect class="fab" x="260" y="28" width="90" height="112"/>
+      <rect x="297" y="28" width="16" height="112" fill="#e9e4db"/>
+      <g fill="#9aa1a8" stroke="#7d838a" stroke-width="0.5">
+        <rect x="301" y="32" width="8" height="3.5"/><rect x="301" y="39" width="8" height="3.5"/>
+        <rect x="301" y="46" width="8" height="3.5"/><rect x="301" y="53" width="8" height="3.5"/>
+        <rect x="301" y="60" width="8" height="3.5"/><rect x="301" y="67" width="8" height="3.5"/>
+        <rect x="301" y="74" width="8" height="3.5"/><rect x="301" y="81" width="8" height="3.5"/>
+        <rect x="301" y="88" width="8" height="3.5"/><rect x="301" y="95" width="8" height="3.5"/>
+        <rect x="301" y="102" width="8" height="3.5"/><rect x="301" y="109" width="8" height="3.5"/>
+        <rect x="301" y="116" width="8" height="3.5"/><rect x="301" y="123" width="8" height="3.5"/>
+        <rect x="301" y="130" width="8" height="3.5"/>
+      </g>
+      <rect class="metal" x="300" y="50" width="10" height="14" rx="2"/>
+      <path class="stitch" d="M293 30 L293 138 M317 30 L317 138"/>
+      <text class="scap" x="305" y="158" text-anchor="middle">exposed metal</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Elastic-waist shortcut</h3>
+  <p>For a pull-on skirt:</p>
+  <ol>
+    <li>Sew side seams.</li>
+    <li>Make a casing at the waist — fold and stitch, leaving a gap.</li>
+    <li>Thread elastic.</li>
+    <li>Close the gap.</li>
+  </ol>
+  <p>No zipper, no fitting — a one-evening project.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 150" role="img" aria-label="Elastic waist casing with a gap for threading the elastic through with a safety pin">
+      <rect class="fab" x="40" y="40" width="300" height="70"/>
+      <rect x="40" y="40" width="300" height="26" fill="#c2d3e4" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="stitch" d="M44 66 L248 66 M292 66 L336 66"/>
+      <!-- elastic emerging at the gap -->
+      <path d="M248 62 Q 270 48 292 62" stroke="#8a8a8a" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <!-- safety pin -->
+      <path d="M258 50 L280 44" stroke="#7d838a" stroke-width="2"/>
+      <circle cx="258" cy="50" r="3" fill="none" stroke="#7d838a" stroke-width="1.5"/>
+      <text class="slabel" x="270" y="32" text-anchor="middle">gap — thread elastic, then close</text>
+      <text class="scap" x="190" y="136" text-anchor="middle">fold &amp; stitch a casing; no zipper, no fitting</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Serger Notes</h2>
+<div class="tech">
+  <ul>
+    <li>Serge seam allowances after sewing; serge the hem's raw edge for a clean single-fold hem on bulky fabric.</li>
+    <li>Serge the inner waistband edge instead of turning it under (see the waistband cross-section in step 5).</li>
+  </ul>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://www.doinaalexei.com/beginnersewingtutorialblog/how-to-sew-a-skirt-waistband-with-a-side-seam-invisible-zipper">How to Sew a Skirt Waistband with a Side-Seam Invisible Zipper — Doina Alexei</a></li>
+  <li><a href="https://blog.megannielsen.com/2020/12/veronika-sewalong-waistband-zipper/">Veronika Sewalong: Waistband &amp; Zipper — Megan Nielsen</a></li>
+  <li><a href="https://www.threadsmagazine.com/project-guides/learn-to-sew/zip-through-the-waistband">Zip Through the Waistband — Threads Magazine</a></li>
+  <li><a href="https://weallsew.com/how-to-sew-an-invisible-zipper-into-a-skirt-with-a-waistband/">How to Sew an Invisible Zipper into a Skirt with a Waistband — WeAllSew</a></li>
+  <li><a href="https://byhandlondon.com/blogs/by-hand-london/11628437-how-to-sew-the-perfect-waistband">How to Sew the Perfect Waistband — By Hand London</a></li>
+  <li><a href="https://sewguide.com/how-to-sew-a-waistband-with-zipper/">How to Sew a Waistband with Zipper: 3 Ways — SewGuide</a></li>
+  <li><a href="https://sunflowerseams.com/blogs/sewing-101/step-by-step-guide-to-sewing-an-invisible-zipper-in-a-skirt">Step-by-Step Guide to Sewing an Invisible Zipper in a Skirt — Sunflower Seams</a></li>
+</ul>
+
+<footer>Diagrams informed by the Megan Nielsen, WeAllSew, and SewGuide tutorials above · 2026-06-11</footer>
+
+</main>
+</body>
+</html>

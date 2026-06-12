@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knits and T-Shirts — Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 22px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .legend svg { vertical-align: -4px; margin-right: 6px; }
+
+  /* fabric cards */
+  .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .fabric-grid { grid-template-columns: 1fr; } }
+  .fcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .fcard h3 { margin-top: 0; }
+  .fcard ul { margin: 6px 0 0; padding-left: 20px; }
+  .fabric-note { color: var(--muted); font-style: italic; margin-top: 12px; }
+
+  /* step cards */
+  .step {
+    display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; margin: 16px 0;
+    break-inside: avoid;
+  }
+  @media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+  .step .text { min-width: 0; }
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+    margin-right: 10px; flex: none;
+  }
+  .steptitle { display: flex; align-items: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { margin: 6px 0; }
+  .step ol, .step ul { margin: 4px 0 10px; padding-left: 22px; }
+  .step li { margin: 3px 0; }
+  .step figure { margin: 0; align-self: center; }
+  .step svg, .mini svg { width: 100%; height: auto; display: block; }
+  .step figcaption { display: none; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+  .mini { max-width: 560px; margin: 14px auto 4px; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+  .sources .blocked { color: var(--muted); font-size: .85rem; }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .lining { fill: #f0e0bd; stroke: #bfa269; stroke-width: 1.5; }
+  .interf { fill: url(#dots); stroke: #a89f8d; stroke-width: 1; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .stitch-old { fill: none; stroke: #b8434e; stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .4; }
+  .coil   { fill: none; stroke: #7c4a5e; stroke-width: 3; stroke-dasharray: 2.5 2.5; }
+  .tape   { fill: #e3c1cc; stroke: #b58e9c; stroke-width: 1; }
+  .metal  { fill: #b9bec4; stroke: #7d838a; stroke-width: 1; }
+  .lead   { fill: none; stroke: #9a948a; stroke-width: 1.2; }
+  .guide  { fill: none; stroke: #9a948a; stroke-width: 1; stroke-dasharray: 7 4 2 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+  .elastic { fill: #e9e4ef; stroke: #9a90b0; stroke-width: 1; }
+  .slabel { font: 11px -apple-system, "Segoe UI", sans-serif; fill: #5a554e; }
+  .scap   { font: 600 11.5px -apple-system, "Segoe UI", sans-serif; fill: #3a3733; }
+  svg text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+
+  @media print {
+    body { background: #fff; }
+    .step, .tech, .fcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html">Home</a>
+    <a class="navlink" href="Tops and Shirts.html">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html">Pants</a>
+    <a class="navlink" href="Skirts.html">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html" aria-current="page">Knits</a>
+  </div>
+</nav>
+
+<!-- shared defs for all inline SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#eee8dc"/>
+      <circle cx="2.5" cy="2.5" r="1.1" fill="#a59a83"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b665e"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b8434e"/>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+<header>
+  <h1>Knits and T-Shirts</h1>
+  <div class="tagrow">
+    <span class="tag">#sewing</span>
+    <span class="tag">#manual</span>
+  </div>
+  <p class="intro">T-shirts, sweatshirts, leggings, and activewear — where the serger becomes the primary
+  construction machine. Knits don't fray, stretch as you sew, and need stitches that stretch with them.
+  Part of the <a class="pagelink" href="index.html">Sewing Manual</a>.</p>
+
+  <div class="legend">
+    <span><svg width="26" height="14"><rect class="fab" x="1" y="1" width="24" height="12" rx="2"/></svg>fabric, right side</span>
+    <span><svg width="26" height="14"><rect class="fabws" x="1" y="1" width="24" height="12" rx="2"/></svg>wrong side</span>
+    <span><svg width="26" height="14"><rect class="elastic" x="1" y="1" width="24" height="12" rx="2"/></svg>clear elastic / stay tape</span>
+    <span><svg width="30" height="10"><path class="serge" d="M1 5 H29"/></svg>serger / overlock</span>
+    <span><svg width="30" height="10"><path class="stitch" d="M1 5 H29"/></svg>machine stitching</span>
+  </div>
+</header>
+
+<h2>Fabric</h2>
+<div class="fabric-grid">
+  <div class="fcard">
+    <h3>Easy</h3>
+    <ul>
+      <li>Cotton/spandex jersey (190 gsm+)</li>
+      <li>Interlock</li>
+      <li>French terry</li>
+      <li>Ponte</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Harder</h3>
+    <ul>
+      <li>Lightweight rayon jersey</li>
+      <li>Slinky knits</li>
+      <li>Ribbing used as fabric</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Activewear</h3>
+    <ul>
+      <li>Nylon/spandex or poly/spandex</li>
+      <li>4-way stretch, good recovery</li>
+      <li>— see the activewear section below</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Match the stretch</h3>
+    <ul>
+      <li>Check the pattern's stretch %</li>
+      <li>A 50%-stretch pattern is tight in 20%-stretch interlock</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Machine Setup</h2>
+<div class="tech">
+  <ul>
+    <li><strong>Needles:</strong> ballpoint / jersey for normal knits, stretch needle for spandex-heavy
+    fabric — these slide between fibers instead of piercing them (skipped stitches usually mean wrong needle).</li>
+    <li><strong>Thread:</strong> polyester everywhere; cotton thread snaps when the seam stretches.</li>
+    <li><strong>Machine stitches:</strong> narrow zigzag (0.5–1.0 wide, 2.5 long) or the lightning stitch
+    for seams; never a plain straight stitch on anything that stretches.</li>
+    <li><strong>Serger:</strong> 4-thread overlock is the construction seam. Set differential feed slightly
+    above 1 if seams come out wavy.</li>
+  </ul>
+</div>
+
+<h2>Assembly Order — T-Shirt</h2>
+
+<!-- ──────────────── STEP 1 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">1</span>Stabilize the shoulders</div>
+    <p>Serge clear elastic or fusible stay tape into the shoulder seams.</p>
+    <p>These carry the shirt's weight and would stretch out otherwise.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Clear elastic or stay tape laid along the shoulder seam of the front and back pieces, then serged in so it is caught in the seam">
+      <!-- front and back at the shoulder, right sides together -->
+      <path class="fabws" d="M40 70 L150 64 L168 96 L150 132 L40 138 Z"/>
+      <path class="fabws" d="M212 64 L340 70 L340 138 L230 132 L212 96 Z"/>
+      <!-- shoulder seam edge guide -->
+      <path class="guide" d="M150 60 L168 96 L150 136"/>
+      <text class="slabel" x="92" y="58" text-anchor="middle">back, wrong side up</text>
+      <text class="slabel" x="288" y="58" text-anchor="middle">front, wrong side up</text>
+      <!-- clear elastic strip riding the seam -->
+      <rect class="elastic" x="142" y="62" width="14" height="78"/>
+      <text class="slabel" x="105" y="112" text-anchor="end">clear elastic /</text>
+      <text class="slabel" x="105" y="125" text-anchor="end">stay tape</text>
+      <path class="lead" d="M108 116 Q 126 110 140 102" marker-end="url(#arr)"/>
+      <!-- serger stitch over the seam, catching the elastic -->
+      <path class="serge" d="M150 64 l5 5 l-5 5 l5 5 l-5 5 l5 5 l-5 5 l5 5 l-5 5 l5 5 l-5 5 l5 5 l-5 5 l5 5 l-5 5"/>
+      <text class="slabel" x="235" y="166" text-anchor="middle">serge through both layers</text>
+      <text class="slabel" x="235" y="179" text-anchor="middle">plus the elastic</text>
+      <path class="lead" d="M212 162 Q 186 150 162 124" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="232" text-anchor="middle">stay the shoulders so they don't grow with wear</text>
+    </svg>
+    <figcaption>Clear elastic or stay tape serged into the shoulder seam to keep it from stretching.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 2 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">2</span>Shoulder seams</div>
+    <p>Serge both shoulder seams — the elastic from step 1 rides inside them.</p>
+    <p>The shirt is now a single flat piece, open at the neck, sides, and underarms.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Front and back joined at both shoulders, opened out flat into a single T-shape with the neckline open at the top">
+      <!-- opened-out flat tee body -->
+      <path class="fab" d="M118 70 Q190 62 262 70 L262 96
+                           L330 110 L322 140 L286 132 L286 210
+                           Q190 222 94 210 L94 132 L58 140 L50 110 L118 96 Z"/>
+      <!-- neckline opening -->
+      <path class="fabws" d="M150 70 Q190 96 230 70 Q230 80 190 84 Q150 80 150 70 Z"/>
+      <!-- shoulder seams (both) -->
+      <path class="serge" d="M150 70 l4 4 l-4 4 l4 4 M226 70 l4 4 l-4 4 l4 4"/>
+      <path class="stitch-old" d="M132 78 L168 73 M212 73 L248 78"/>
+      <text class="slabel" x="190" y="118" text-anchor="middle">both shoulder seams sewn</text>
+      <path class="lead" d="M160 100 Q 156 88 152 80" marker-end="url(#arr)"/>
+      <path class="lead" d="M220 100 Q 224 88 228 80" marker-end="url(#arr)"/>
+      <text class="slabel" x="190" y="160" text-anchor="middle">neckline still open</text>
+      <text class="scap" x="190" y="240" text-anchor="middle">flat: open at neck, sides, and underarms</text>
+    </svg>
+    <figcaption>Both shoulder seams serged, leaving the body flat and open at the neck.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 3 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">3</span>Neckband</div>
+    <p>Attach the band in the round now, while the rest of the shirt is flat and easy to handle
+    (full technique below).</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two stages: the band sewn into a loop and folded wrong sides together, then quartered against the neckline and serged with the band on top">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — loop, fold in half</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — quarter &amp; serge</text>
+      <!-- A: band loop folded — a clean ring (donut) -->
+      <ellipse class="fab" cx="96" cy="118" rx="60" ry="36"/>
+      <ellipse cx="96" cy="118" rx="30" ry="18" fill="#faf7f2" stroke="#5e7f9e" stroke-width="1.2"/>
+      <!-- folded top edge of the band -->
+      <path d="M36 118 a60 36 0 0 1 120 0" fill="none" stroke="#5e7f9e" stroke-width="1.2"/>
+      <!-- band join seam -->
+      <path class="serge" d="M94 82 l5 4 l-5 4 l5 4"/>
+      <text class="slabel" x="120" y="80" text-anchor="start">band seam</text>
+      <path class="lead" d="M118 84 Q 108 84 100 86" marker-end="url(#arr)"/>
+      <text class="slabel" x="96" y="115" text-anchor="middle">folded, wrong</text>
+      <text class="slabel" x="96" y="128" text-anchor="middle">sides together</text>
+      <text class="scap" x="96" y="178" text-anchor="middle">band ≈ 75–85% of neckline</text>
+      <!-- B: band on the neckline, quartered -->
+      <path class="fab" d="M222 150 Q285 130 348 150 L348 214 Q285 226 222 214 Z"/>
+      <!-- neckline curve -->
+      <path class="fabws" d="M236 150 Q285 188 334 150 Q334 160 285 166 Q236 160 236 150 Z"/>
+      <!-- band ring on top, stretched to fit -->
+      <path class="elastic" d="M232 150 Q285 178 338 150 L338 142 Q285 168 232 142 Z" opacity="0.9"/>
+      <!-- quarter pins -->
+      <circle cx="285" cy="146" r="2.4" fill="#b8434e"/>
+      <circle cx="246" cy="150" r="2.4" fill="#b8434e"/>
+      <circle cx="324" cy="150" r="2.4" fill="#b8434e"/>
+      <path class="serge" d="M250 149 l3 3 l-3 3 l3 3 M316 149 l3 3 l-3 3 l3 3"/>
+      <text class="slabel" x="285" y="138" text-anchor="middle">band on top</text>
+      <text class="slabel" x="285" y="202" text-anchor="middle">stretch only the band</text>
+      <text class="scap" x="285" y="240" text-anchor="middle">match quarter points, serge</text>
+    </svg>
+    <figcaption>Band sewn into a loop and folded, then quartered against the neckline and serged on top.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 4 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">4</span>Sleeves flat</div>
+    <p>Match the cap center to the shoulder seam and serge each sleeve in one pass —
+    no easing, because the shirt is still open and flat.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="A sleeve laid right sides together onto the open armhole edge with the cap center matched to the shoulder seam, serged flat in one pass">
+      <!-- body, opened flat, armhole edge facing up -->
+      <path class="fab" d="M210 60 Q250 54 290 60 L300 92 L300 220 Q250 230 200 220 L200 92 Z"/>
+      <!-- shoulder seam mark on body -->
+      <path class="guide" d="M250 56 L250 92"/>
+      <text class="slabel" x="250" y="50" text-anchor="middle">shoulder seam</text>
+      <!-- armhole edge -->
+      <path class="fabws" d="M200 92 Q190 130 200 168 L210 168 Q200 130 210 92 Z"/>
+      <!-- sleeve, flat, cap to the armhole -->
+      <path class="fab" d="M70 92 Q60 130 70 168 L150 178 L160 130 L150 82 Z"/>
+      <!-- cap center tick -->
+      <path class="guide" d="M70 92 L60 84 M70 168 L60 176"/>
+      <text class="slabel" x="105" y="126" text-anchor="middle">sleeve, flat</text>
+      <text class="slabel" x="105" y="139" text-anchor="middle">cap to the left</text>
+      <!-- serge line along armhole -->
+      <path class="serge" d="M196 96 l4 4 l-4 4 l4 4 l-4 4 l4 4 l-4 4 l4 4 l-4 4 l4 4 l-4 4 l4 4 l-4 4 l4 4 l-4 4 l4 4"/>
+      <text class="slabel" x="150" y="206" text-anchor="middle">match cap center</text>
+      <text class="slabel" x="150" y="219" text-anchor="middle">to shoulder seam</text>
+      <path class="lead" d="M168 200 Q 210 188 238 110" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="243" text-anchor="middle">serge the sleeve in one flat pass</text>
+    </svg>
+    <figcaption>Sleeve set flat: cap center matched to the shoulder seam, serged in one pass.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 5 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">5</span>Side seams</div>
+    <p>One continuous pass on each side — from the sleeve hem, through the underarm, down to
+    the bottom hem. Match the underarm seam so it lines up.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The folded shirt with one continuous side seam serged from the sleeve hem through the underarm to the bottom hem">
+      <!-- folded tee silhouette: half body + sleeve -->
+      <path class="fabws" d="M120 70 L120 96 L40 116 L30 146 L66 156 L94 150 L94 220 Q150 230 206 220 L206 70 Q163 62 120 70 Z"/>
+      <!-- continuous side+underarm+sleeve seam, traced along the edge -->
+      <path class="serge" d="M40 118 L70 126 L98 150 L100 216"/>
+      <path class="stitch-old" d="M44 120 L72 129 L100 152 L102 214"/>
+      <text class="slabel" x="150" y="120" text-anchor="middle">sleeve hem → underarm → bottom hem</text>
+      <text class="slabel" x="150" y="133" text-anchor="middle">in one continuous pass</text>
+      <!-- underarm match dot -->
+      <circle cx="98" cy="150" r="3" fill="#b8434e"/>
+      <text class="slabel" x="118" y="168" text-anchor="start">match the</text>
+      <text class="slabel" x="118" y="181" text-anchor="start">underarm</text>
+      <path class="lead" d="M116 164 Q 108 156 102 152" marker-end="url(#arr)"/>
+      <!-- start / end arrows -->
+      <path class="lead" d="M30 110 L40 116" marker-start="url(#arr)"/>
+      <path class="lead" d="M100 226 L100 216" marker-start="url(#arr)"/>
+      <text class="scap" x="190" y="243" text-anchor="middle">left side shown — repeat on the right</text>
+    </svg>
+    <figcaption>One continuous side seam from sleeve hem through the underarm to the bottom hem.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 6 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">6</span>Hems</div>
+    <ol>
+      <li>Press the hem allowance up; optionally fuse knit stay tape into the fold.</li>
+      <li>Twin needle from the right side (or coverstitch).</li>
+    </ol>
+    <p>Total: about six seams — the whole garment, which is why a t-shirt is the best first knit project.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two stages: the hem allowance pressed up with stay tape in the fold, then twin-needle topstitching from the right side showing two parallel rows">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — press the hem up</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — twin needle, right side</text>
+      <!-- A: cross-section, hem folded up -->
+      <rect class="fabws" x="40" y="70" width="110" height="64"/>
+      <rect class="fabws" x="40" y="134" width="110" height="22" transform="rotate(0 40 134)"/>
+      <!-- folded allowance turned up -->
+      <path class="fab" d="M40 156 L150 156 L150 134 L40 134 Z"/>
+      <rect class="elastic" x="44" y="138" width="102" height="6"/>
+      <path class="lead" d="M60 168 Q 60 160 60 150" marker-end="url(#arr)"/>
+      <text class="slabel" x="95" y="184" text-anchor="middle">fold up; optional</text>
+      <text class="slabel" x="95" y="197" text-anchor="middle">knit stay tape in fold</text>
+      <text class="scap" x="95" y="222" text-anchor="middle">press the allowance up</text>
+      <!-- B: right side, twin-needle two rows -->
+      <rect class="fab" x="222" y="70" width="130" height="100"/>
+      <path class="stitch" d="M236 132 H338"/>
+      <path class="stitch" d="M236 142 H338"/>
+      <text class="slabel" x="287" y="120" text-anchor="middle">two parallel rows</text>
+      <text class="slabel" x="287" y="190" text-anchor="middle">zigzag underneath</text>
+      <text class="slabel" x="287" y="203" text-anchor="middle">stretches with the knit</text>
+      <text class="scap" x="287" y="226" text-anchor="middle">twin needle from the right side</text>
+    </svg>
+    <figcaption>Hem allowance pressed up with stay tape, then twin-needle topstitched from the right side.</figcaption>
+  </figure>
+</div>
+
+<h2>Key Techniques</h2>
+
+<div class="tech">
+  <h3>The neckband</h3>
+  <p>The single technique that makes or breaks a t-shirt:</p>
+  <ul>
+    <li>Cut the band <strong>75–85% of the neckline length</strong> (ribbing: shorter end of range;
+    jersey: longer), with the greatest stretch running lengthwise.</li>
+    <li>Sew the band into a loop, fold wrong sides together, press.</li>
+    <li><strong>Quarter</strong> the band and the neckline with pins, match the quarter points (band seam
+    at center back), and serge with the band on top, <strong>stretching only the band</strong> to fit
+    between pins — never the shirt.</li>
+    <li>Press flat, then optionally topstitch the seam allowance down with a twin needle.</li>
+    <li>If it stands away from the body, the band was too long or you stretched the neckline; if it flips
+    out, too short. Cut a test band — it costs a scrap.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 170" role="img" aria-label="Band and neckline each divided into four equal quarters with pins, the shorter band stretched to match the longer neckline between the quarter points">
+      <!-- neckline circle, quartered -->
+      <circle cx="96" cy="86" r="50" fill="none" stroke="#5e7f9e" stroke-width="1.6"/>
+      <circle cx="96" cy="36" r="2.6" fill="#b8434e"/>
+      <circle cx="96" cy="136" r="2.6" fill="#b8434e"/>
+      <circle cx="46" cy="86" r="2.6" fill="#b8434e"/>
+      <circle cx="146" cy="86" r="2.6" fill="#b8434e"/>
+      <!-- band circle, smaller, quartered -->
+      <circle cx="96" cy="86" r="34" fill="none" stroke="#9a90b0" stroke-width="3"/>
+      <circle cx="96" cy="52" r="2.4" fill="#7c4a5e"/>
+      <circle cx="96" cy="120" r="2.4" fill="#7c4a5e"/>
+      <circle cx="62" cy="86" r="2.4" fill="#7c4a5e"/>
+      <circle cx="130" cy="86" r="2.4" fill="#7c4a5e"/>
+      <text class="slabel" x="96" y="28" text-anchor="middle">band seam = CB</text>
+      <text class="scap" x="96" y="160" text-anchor="middle">four quarter points on each</text>
+      <!-- right: stretch only the band between pins -->
+      <line x1="200" y1="60" x2="350" y2="60" stroke="#5e7f9e" stroke-width="1.6"/>
+      <circle cx="210" cy="60" r="2.6" fill="#b8434e"/>
+      <circle cx="340" cy="60" r="2.6" fill="#b8434e"/>
+      <text class="slabel" x="275" y="52" text-anchor="middle">neckline quarter (longer)</text>
+      <line x1="222" y1="92" x2="328" y2="92" stroke="#9a90b0" stroke-width="3"/>
+      <circle cx="222" cy="92" r="2.4" fill="#7c4a5e"/>
+      <circle cx="328" cy="92" r="2.4" fill="#7c4a5e"/>
+      <text class="slabel" x="275" y="112" text-anchor="middle">band quarter (shorter)</text>
+      <path class="lead" d="M222 80 L210 64" marker-end="url(#arr)"/>
+      <path class="lead" d="M328 80 L340 64" marker-end="url(#arr)"/>
+      <text class="scap" x="275" y="138" text-anchor="middle">stretch the band to fill the gap</text>
+      <text class="scap" x="275" y="153" text-anchor="middle">— never the neckline</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Hemming knits</h3>
+  <p>Twin needle (stretch twin, 4.0/75) gives the ready-to-wear double line: two straight rows on top,
+  zigzag bobbin underneath that stretches. Loosen needle tension slightly and use a slightly longer
+  stitch to avoid the "tunnel" ridge between the rows; fusible knit stay tape in the fold eliminates
+  it entirely.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 160" role="img" aria-label="Cross-section of a twin-needle hem: two needles make parallel top rows while a single bobbin thread zigzags between them on the wrong side, with the tunnel ridge shown and then flattened by stay tape">
+      <text class="scap" x="95" y="32" text-anchor="middle">tunnel ridge</text>
+      <!-- right side with two rows + bulge -->
+      <rect class="fab" x="30" y="44" width="130" height="46"/>
+      <path class="stitch" d="M44 60 H146"/>
+      <path class="stitch" d="M44 74 H146"/>
+      <path d="M44 60 Q95 52 146 60" fill="none" stroke="#8fa3b8" stroke-width="1.2"/>
+      <path d="M44 74 Q95 82 146 74" fill="none" stroke="#8fa3b8" stroke-width="1.2"/>
+      <text class="slabel" x="95" y="112" text-anchor="middle">two top rows; bobbin</text>
+      <text class="slabel" x="95" y="125" text-anchor="middle">zigzag stretches below</text>
+      <!-- arrow to fix -->
+      <path class="lead" d="M170 67 H210" marker-end="url(#arr)"/>
+      <!-- right: flattened with stay tape -->
+      <text class="scap" x="290" y="32" text-anchor="middle">flat — stay tape in fold</text>
+      <rect class="fab" x="225" y="44" width="130" height="46"/>
+      <rect class="elastic" x="229" y="62" width="122" height="10"/>
+      <path class="stitch" d="M239 60 H341"/>
+      <path class="stitch" d="M239 74 H341"/>
+      <text class="slabel" x="290" y="112" text-anchor="middle">fusible knit tape removes</text>
+      <text class="slabel" x="290" y="125" text-anchor="middle">the ridge entirely</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>No serger needed (backup)</h3>
+  <p>Everything here also works on a plain machine: a narrow zigzag for seams and a zigzag or twin
+  needle for hems. The serger is faster and cleaner, not mandatory.</p>
+</div>
+
+<h2>Serger Notes</h2>
+<div class="tech">
+  <ul>
+    <li>The 4-thread overlock is the construction seam for every join above — it sews, trims, and
+    finishes in one pass.</li>
+    <li>If seams come out wavy, raise the differential feed slightly above 1 so the feed dogs ease the
+    fabric instead of stretching it.</li>
+    <li>Use a ballpoint serger needle and polyester thread; cotton serger thread snaps under stretch.</li>
+  </ul>
+</div>
+
+<h2>Advanced: Activewear and Leggings</h2>
+<div class="tech">
+  <ul>
+    <li><strong>Seams under tension:</strong> 4-thread serge, or lightning stitch; for leggings, sew the
+    crotch/gusset seam twice.</li>
+    <li><strong>Clear elastic</strong> is the workhorse — serge it into waistband edges, leg openings, and
+    any seam that needs recovery without bulk. Stretch it slightly taut as you sew.</li>
+    <li><strong>Waistbands:</strong> wide elastic inside a fabric casing, or a tall self-fabric band with
+    clear elastic in the top seam. The Last Stitch's Aila sewalong covers both.</li>
+    <li><strong>Gusset:</strong> the diamond at the leggings crotch; sew it to both legs flat, then close
+    everything in one pass.</li>
+    <li><strong>Negative ease is the fit model:</strong> leggings are drafted smaller than the body;
+    don't size up because the flat pieces look tiny.</li>
+    <li>Hem with a twin needle or a wide zigzag — and hem <em>before</em> the final inseam pass when the
+    pattern allows; it's much easier flat.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 190" role="img" aria-label="Two activewear details: a tall self-fabric leggings waistband folded over with clear elastic serged into the top seam, and the diamond crotch gusset sewn to both legs flat before closing the inseam">
+      <line x1="190" y1="20" x2="190" y2="172" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="26" text-anchor="middle">tall band + clear elastic</text>
+      <!-- waistband cross-section, folded over -->
+      <path class="fab" d="M40 44 L150 44 L150 120 L40 120 Z"/>
+      <path class="fab" d="M40 44 L150 44 L150 54 Q95 60 40 54 Z" opacity="0.85"/>
+      <!-- fold line at top -->
+      <path d="M40 44 Q95 38 150 44" fill="none" stroke="#5e7f9e" stroke-width="1.4"/>
+      <!-- clear elastic in the top seam -->
+      <rect class="elastic" x="44" y="46" width="102" height="8"/>
+      <path class="serge" d="M48 50 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3"/>
+      <text class="slabel" x="95" y="92" text-anchor="middle">elastic serged into</text>
+      <text class="slabel" x="95" y="105" text-anchor="middle">the top, stretched taut</text>
+      <text class="scap" x="95" y="138" text-anchor="middle">self-fabric band folds inside</text>
+      <!-- right: gusset diamond into both legs -->
+      <text class="scap" x="285" y="26" text-anchor="middle">crotch gusset, flat</text>
+      <!-- left leg -->
+      <path class="fab" d="M214 48 L256 48 L262 150 L226 150 Z"/>
+      <!-- right leg -->
+      <path class="fab" d="M314 48 L356 48 L344 150 L308 150 Z"/>
+      <!-- diamond gusset between -->
+      <path class="fabd" d="M285 70 L300 100 L285 130 L270 100 Z"/>
+      <path class="serge" d="M271 99 l4 3 l-4 3 M299 99 l-4 3 l4 3"/>
+      <text class="slabel" x="285" y="104" text-anchor="middle">gusset</text>
+      <path class="lead" d="M262 80 Q 272 84 276 90" marker-end="url(#arr)"/>
+      <path class="lead" d="M308 80 Q 298 84 294 90" marker-end="url(#arr)"/>
+      <text class="scap" x="283" y="168" text-anchor="middle">sew to both legs, then close flat</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://www.thelaststitch.com/how-to-sew-knit-neckband-tshirt/">How to Sew a Knit Neckband the Fail-Proof Way — The Last Stitch</a></li>
+  <li><a href="https://helensclosetpatterns.com/blogs/helens-closet/how-to-sew-a-knit-neck-band">How to Sew a Knit Neck Band — Helen's Closet</a></li>
+  <li><a href="https://www.heatherhandmade.com/how-to-sew-neckband/">How to Sew a Neckband — Heather Handmade</a></li>
+  <li><a href="https://www.pincutsewstudio.com/blog/2021/4/26/how-to-sew-a-knit-neckband-a-no-fail-method">How to Sew a Knit Neckband: A No-Fail Method — Pin Cut Sew Studio</a></li>
+  <li><a href="https://weallsew.com/tips-for-sewing-a-basic-tee-construct-a-neckband/">Tips for Sewing a Basic Tee: Construct a Neckband — WeAllSew</a></li>
+  <li><a href="https://www.seasonedhomemaker.com/sewing-knits-making-t-shirt/">Sewing Knits: Making a T-Shirt — The Seasoned Homemaker</a></li>
+  <li><a href="https://www.sewdiy.com/blog/tutorials-for-sewing-with-knit-fabric">Tutorials for Sewing with Knit Fabric (roundup) — Sew DIY</a></li>
+  <li><a href="https://www.seamwork.com/sewing-tutorials/strong-sewing">How to Sew Athletic Wear — Seamwork</a></li>
+  <li><a href="https://www.thelaststitch.com/sewing-activewear-tutorials/">8 Tutorials on How to Sew Your Own Activewear — The Last Stitch</a></li>
+  <li><a href="https://www.thelaststitch.com/sewing-with-clear-elastic-5-game-changing-tips/">Sewing with Clear Elastic: 5 Game-Changing Tips — The Last Stitch</a></li>
+  <li><a href="https://www.thelaststitch.com/sewing-the-leggings-waistband-aila-sew-along/">Sewing the Leggings Waistband (Aila Sew-Along) — The Last Stitch</a></li>
+  <li><a href="https://www.thelaststitch.com/how-to-hem-leggings-aila-sew-along/">How to Hem Leggings (Aila Sew-Along) — The Last Stitch</a></li>
+  <li><a href="https://fashionsewingwithangelawolf.com/2020/08/10-tips-for-sewing-leggings-sportswear/">10 Tips for Sewing Leggings &amp; Sportswear — Angela Wolf</a></li>
+  <li><a href="https://fabricandflow.com/blogs/news/roughhow-to-sew-with-stretch-fabric-without-a-serger">How to Sew Stretch Fabric on a Home Machine — Fabric + Flow</a></li>
+</ul>
+
+<footer>Diagrams informed by the The Last Stitch and Seasoned Homemaker tutorials above · 2026-06-12</footer>
+
+</main>
+</body>
+</html>

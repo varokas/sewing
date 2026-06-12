@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pants and Shorts — Sewing Manual</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3733;
+    --muted: #79736a;
+    --accent: #b8434e;
+    --fab: #8fa9c9;
+    --fab-stroke: #5e7f9e;
+    --line: #e6dfd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { margin-bottom: 8px; }
+  h1 { font-size: 2.2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.35rem; margin: 44px 0 14px; padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+  }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .tagrow { margin: 6px 0 14px; }
+  .tag {
+    display: inline-block; background: #ece5d8; color: #6e6354;
+    border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; margin-right: 6px;
+  }
+  .intro { color: var(--muted); max-width: 64ch; }
+  .vaultlink { color: var(--fab-stroke); font-weight: 600; white-space: nowrap; }
+  .vaultlink::before { content: "[["; opacity: .45; }
+  .vaultlink::after  { content: "]]"; opacity: .45; }
+  a.pagelink { color: var(--fab-stroke); font-weight: 600; text-decoration: none; }
+  a.pagelink:hover { text-decoration: underline; }
+
+  /* site nav */
+  .sitenav { background: var(--card); border-bottom: 1px solid var(--line); }
+  .sitenav .inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 20px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .sitename {
+    display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .sitename:hover { color: var(--accent); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+  .navlink:hover { color: var(--accent); }
+  .navlink[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+  /* legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 22px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .legend svg { vertical-align: -4px; margin-right: 6px; }
+
+  /* fabric cards */
+  .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .fabric-grid { grid-template-columns: 1fr; } }
+  .fcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .fcard h3 { margin-top: 0; }
+  .fcard ul { margin: 6px 0 0; padding-left: 20px; }
+  .fabric-note { color: var(--muted); font-style: italic; margin-top: 12px; }
+
+  /* step cards */
+  .step {
+    display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; margin: 16px 0;
+    break-inside: avoid;
+  }
+  @media (max-width: 760px) { .step { grid-template-columns: 1fr; } }
+  .step .text { min-width: 0; }
+  .stepnum {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.95rem;
+    margin-right: 10px; flex: none;
+  }
+  .steptitle { display: flex; align-items: center; font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { margin: 6px 0; }
+  .step ol, .step ul { margin: 4px 0 10px; padding-left: 22px; }
+  .step li { margin: 3px 0; }
+  .step figure { margin: 0; align-self: center; }
+  .step svg, .mini svg { width: 100%; height: auto; display: block; }
+  .step figcaption { display: none; }
+
+  /* technique cards */
+  .tech {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; margin: 14px 0; break-inside: avoid;
+  }
+  .tech h3 { margin-top: 0; }
+  .tech ul, .tech ol { margin: 8px 0 0; padding-left: 20px; }
+  .tech li { margin: 4px 0; }
+  .mini { max-width: 560px; margin: 14px auto 4px; }
+
+  /* sources */
+  .sources li { margin: 6px 0; }
+  .sources a { color: var(--fab-stroke); }
+  .sources .blocked { color: var(--muted); font-size: .85rem; }
+
+  footer {
+    margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* shared SVG element styles */
+  .fab    { fill: #8fa9c9; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabd   { fill: #7e9cba; stroke: #5e7f9e; stroke-width: 1.5; }
+  .fabws  { fill: #dde6ef; stroke: #8fa3b8; stroke-width: 1.5; }
+  .lining { fill: #f0e0bd; stroke: #bfa269; stroke-width: 1.5; }
+  .interf { fill: url(#dots); stroke: #a89f8d; stroke-width: 1; }
+  .stitch { fill: none; stroke: #b8434e; stroke-width: 1.6; stroke-dasharray: 6 4; }
+  .stitch-old { fill: none; stroke: #b8434e; stroke-width: 1.4; stroke-dasharray: 5 4; opacity: .4; }
+  .coil   { fill: none; stroke: #7c4a5e; stroke-width: 3; stroke-dasharray: 2.5 2.5; }
+  .tape   { fill: #e3c1cc; stroke: #b58e9c; stroke-width: 1; }
+  .metal  { fill: #b9bec4; stroke: #7d838a; stroke-width: 1; }
+  .lead   { fill: none; stroke: #9a948a; stroke-width: 1.2; }
+  .guide  { fill: none; stroke: #9a948a; stroke-width: 1; stroke-dasharray: 7 4 2 4; }
+  .serge  { fill: none; stroke: #6f9b6f; stroke-width: 1.4; }
+  .slabel { font: 11px -apple-system, "Segoe UI", sans-serif; fill: #5a554e; }
+  .scap   { font: 600 11.5px -apple-system, "Segoe UI", sans-serif; fill: #3a3733; }
+  svg text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+
+  @media print {
+    body { background: #fff; }
+    .step, .tech, .fcard { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="inner">
+    <a class="sitename" href="index.html"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="#b8434e" stroke-width="2"/><circle cx="7" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="7.5" r="1.3" fill="#b8434e"/><circle cx="7" cy="12.5" r="1.3" fill="#b8434e"/><circle cx="13" cy="12.5" r="1.3" fill="#b8434e"/></svg>Sewing Manual</a>
+    <a class="navlink" href="index.html">Home</a>
+    <a class="navlink" href="Tops and Shirts.html">Tops</a>
+    <a class="navlink" href="Dresses.html">Dresses</a>
+    <a class="navlink" href="Pants and Shorts.html" aria-current="page">Pants</a>
+    <a class="navlink" href="Skirts.html">Skirts</a>
+    <a class="navlink" href="Jackets and Outerwear.html">Jackets</a>
+    <a class="navlink" href="Knits and T-Shirts.html">Knits</a>
+  </div>
+</nav>
+
+<!-- shared defs for all inline SVGs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#eee8dc"/>
+      <circle cx="2.5" cy="2.5" r="1.1" fill="#a59a83"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#6b665e"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b8434e"/>
+    </marker>
+  </defs>
+</svg>
+
+<main>
+
+<header>
+  <h1>Pants and Shorts</h1>
+  <div class="tagrow">
+    <span class="tag">#sewing</span>
+    <span class="tag">#manual</span>
+  </div>
+  <p class="intro">Trousers, shorts, and jeans. The fly front looks intimidating but is a fixed sequence
+  of four seams — follow a photo tutorial exactly the first two times and it becomes routine.
+  Part of the <a class="pagelink" href="index.html">Sewing Manual</a>.</p>
+
+  <div class="legend">
+    <span><svg width="26" height="14"><rect class="fab" x="1" y="1" width="24" height="12" rx="2"/></svg>fabric, right side</span>
+    <span><svg width="26" height="14"><rect class="fabws" x="1" y="1" width="24" height="12" rx="2"/></svg>wrong side</span>
+    <span><svg width="26" height="14"><rect class="interf" x="1" y="1" width="24" height="12" rx="2"/></svg>interfacing</span>
+    <span><svg width="30" height="10"><path class="stitch" d="M1 5 H29"/></svg>stitching</span>
+    <span><svg width="30" height="10"><path class="serge" d="M1 5 H29"/></svg>serger</span>
+    <span><svg width="30" height="10"><path class="coil" d="M1 5 H29"/></svg>zipper coil</span>
+  </div>
+</header>
+
+<h2>Fabric</h2>
+<div class="fabric-grid">
+  <div class="fcard">
+    <h3>Easy</h3>
+    <ul>
+      <li>Cotton twill</li>
+      <li>Linen</li>
+      <li>Stretch sateen</li>
+      <li>— elastic-waist patterns first</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Trousers</h3>
+    <ul>
+      <li>Wool suiting</li>
+      <li>Tropical wool</li>
+      <li>Drapey twills</li>
+    </ul>
+  </div>
+  <div class="fcard">
+    <h3>Jeans</h3>
+    <ul>
+      <li>10–12 oz denim</li>
+      <li>1–2% spandex for comfort stretch</li>
+      <li>— see the denim section below</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Assembly Order — Fly-Front Trousers</h2>
+
+<!-- ──────────────── STEP 1 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">1</span>Prep</div>
+    <ol>
+      <li>Interface the fly shield and waistband.</li>
+      <li>Serge the edges of all major pieces now while they're flat — crotch curves,
+      outseams, inseams.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Interfacing fused to the fly shield and waistband, and the long edges of a flat front leg serge-finished before construction">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — interface shield &amp; band</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — serge edges while flat</text>
+      <!-- A: waistband strip + fly shield, interfaced -->
+      <rect class="fabws" x="24" y="60" width="148" height="26"/>
+      <rect class="interf" x="28" y="64" width="140" height="18"/>
+      <text class="slabel" x="98" y="100" text-anchor="middle">waistband</text>
+      <path class="fabws" d="M48 128 L120 128 L120 188 Q84 200 48 188 Z"/>
+      <path class="interf" d="M54 134 L114 134 L114 184 Q84 194 54 184 Z"/>
+      <text class="slabel" x="84" y="216" text-anchor="middle">fly shield</text>
+      <path class="lead" d="M132 150 Q 124 150 118 152" marker-end="url(#arr)"/>
+      <text class="slabel" x="150" y="153" text-anchor="middle">fuse</text>
+      <!-- B: flat front leg with serged edges -->
+      <path class="fab" d="M250 56 L322 56 L330 150 Q336 200 312 224 L268 224 Q252 150 248 110 Z"/>
+      <path class="serge" d="M250 58 L322 58"/>
+      <path class="serge" d="M323 58 Q333 150 314 222"/>
+      <path class="serge" d="M250 58 Q250 150 267 222"/>
+      <path class="serge" d="M268 223 L312 223"/>
+      <text class="slabel" x="290" y="120" text-anchor="middle">front leg</text>
+      <text class="slabel" x="290" y="135" text-anchor="middle">(flat)</text>
+      <path class="lead" d="M232 110 Q 244 110 252 110" marker-end="url(#arr)"/>
+      <text class="slabel" x="222" y="113" text-anchor="end">serge</text>
+      <text class="slabel" x="222" y="126" text-anchor="end">all edges</text>
+    </svg>
+    <figcaption>Interface the fly shield and waistband; serge every long edge while the pieces are still flat.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 2 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">2</span>Front pockets</div>
+    <p>Slant or on-seam pockets onto the flat fronts.</p>
+    <ol>
+      <li>Sew the pocket facing, then the bag.</li>
+      <li>Baste the completed pocket into the waist and side seams.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="A slant front pocket: pocket bag and facing attached behind the angled opening on the flat front, then basted into the waist and side seam">
+      <!-- front leg outline -->
+      <path class="fab" d="M70 50 L185 50 L185 222 L96 222 Q70 150 70 50 Z"/>
+      <!-- slant opening -->
+      <path d="M70 50 L150 110" fill="none" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="stitch" d="M74 56 L146 110"/>
+      <!-- pocket bag behind -->
+      <path class="fabws" d="M70 60 Q40 110 60 170 Q110 184 150 158 L150 110 Z" opacity="0.92"/>
+      <path class="stitch" d="M70 64 Q44 110 62 166"/>
+      <text class="slabel" x="92" y="150" text-anchor="middle">pocket</text>
+      <text class="slabel" x="92" y="163" text-anchor="middle">bag</text>
+      <text class="slabel" x="150" y="86" text-anchor="middle">facing</text>
+      <path class="lead" d="M150 92 Q 138 96 128 100" marker-end="url(#arr)"/>
+      <!-- baste at waist + side -->
+      <path class="serge" d="M72 54 L183 54"/>
+      <path class="serge" d="M183 54 L183 130"/>
+      <text class="slabel" x="245" y="64" text-anchor="middle">baste pocket into</text>
+      <text class="slabel" x="245" y="77" text-anchor="middle">waist &amp; side seams</text>
+      <path class="lead" d="M205 78 Q 195 64 185 58" marker-end="url(#arr)"/>
+      <path class="lead" d="M255 90 Q 240 110 188 108" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="244" text-anchor="middle">slant pocket on the flat front</text>
+    </svg>
+    <figcaption>Slant pocket facing and bag attached, then basted into the waist and side seams.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 3 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">3</span>Back shaping</div>
+    <ol>
+      <li>Darts (trousers) or yoke (jeans).</li>
+      <li><strong>Back pockets go on now</strong>, while the backs are flat — placement is a
+      style decision worth pinning and checking in a mirror.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two back legs: trouser back with two waist darts, and jeans back with a yoke seam, each carrying a patch back pocket placed while flat">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — trousers: darts</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — jeans: yoke</text>
+      <!-- A: trouser back -->
+      <path class="fab" d="M40 54 L150 54 L150 224 L66 224 Q40 150 40 54 Z"/>
+      <path d="M70 56 L84 96 L98 56 Z" fill="#6f8db0" opacity="0.45"/>
+      <path class="stitch" d="M70 56 L84 96 M98 56 L84 96"/>
+      <path d="M108 56 L120 90 L132 56 Z" fill="#6f8db0" opacity="0.45"/>
+      <path class="stitch" d="M108 56 L120 90 M132 56 L120 90"/>
+      <text class="slabel" x="100" y="112" text-anchor="middle">waist darts</text>
+      <!-- back patch pocket -->
+      <path d="M70 130 L130 130 L124 180 L100 192 L76 180 Z" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="stitch" d="M74 134 L126 134 L121 178 L100 188 L79 178 Z"/>
+      <text class="slabel" x="100" y="210" text-anchor="middle">patch pocket</text>
+      <!-- B: jeans back with yoke -->
+      <path class="fab" d="M232 78 L344 78 L342 224 L256 224 Q240 150 232 78 Z"/>
+      <path class="fab" d="M232 78 Q258 58 290 56 Q322 58 344 78 L340 56 Q286 44 234 56 Z"/>
+      <path class="stitch" d="M236 78 Q260 60 290 58 Q320 60 342 78"/>
+      <text class="slabel" x="290" y="73" text-anchor="middle">yoke seam</text>
+      <path d="M262 122 L326 122 L320 172 L294 184 L268 172 Z" fill="#7e9cba" stroke="#5e7f9e" stroke-width="1.5"/>
+      <path class="stitch" d="M266 126 L322 126 L317 170 L294 180 L271 170 Z"/>
+      <text class="slabel" x="294" y="204" text-anchor="middle">place &amp; pin</text>
+      <text class="slabel" x="294" y="217" text-anchor="middle">while flat</text>
+    </svg>
+    <figcaption>Back legs shaped — darts for trousers, a yoke for jeans — with back pockets placed while still flat.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 4 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">4</span>Fly-front zipper</div>
+    <ol>
+      <li>Sew the fronts together at the crotch curve from the inseam up to the fly notch.</li>
+      <li>Build the fly: baste the opening closed, sew the zipper to each extension, then the
+      J-topstitch and the fly shield (full sequence below).</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two stages of the fly: fronts joined at the crotch with the fly opening basted closed, then the zipper sewn to the extensions with the J-shaped topstitching and fly shield">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — seam to the notch</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — zipper, J-stitch, shield</text>
+      <!-- A: fronts joined at crotch, fly basted -->
+      <path class="fab" d="M58 56 Q96 64 134 56 L150 150 Q150 200 110 224 L96 224 L96 130 L96 224 L82 224 Q42 200 42 150 Z"/>
+      <!-- basted fly opening -->
+      <path class="stitch-old" d="M96 60 L96 132"/>
+      <!-- permanent crotch seam below notch -->
+      <path class="stitch" d="M96 132 Q96 180 110 214"/>
+      <!-- fly notch -->
+      <path d="M91 132 l5 7 l5 -7 z" fill="none" stroke="#5a554e" stroke-width="1.3"/>
+      <text class="slabel" x="58" y="92" text-anchor="end">baste fly</text>
+      <text class="slabel" x="58" y="105" text-anchor="end">closed</text>
+      <path class="lead" d="M60 100 Q 78 92 92 84" marker-end="url(#arr)"/>
+      <text class="slabel" x="150" y="150" text-anchor="middle">notch</text>
+      <path class="lead" d="M144 146 Q 120 140 104 136" marker-end="url(#arr)"/>
+      <text class="slabel" x="96" y="244" text-anchor="middle">seam below the notch</text>
+      <!-- B: built fly with J-topstitch + shield -->
+      <rect class="fab" x="230" y="56" width="115" height="168"/>
+      <!-- center front -->
+      <path class="guide" d="M287 56 L287 130"/>
+      <!-- zipper under the lap -->
+      <path class="coil" d="M283 64 L283 150"/>
+      <!-- fly shield peeking -->
+      <path class="fabws" d="M287 70 L302 70 L302 150 Q294 156 287 150 Z" opacity="0.92"/>
+      <text class="slabel" x="318" y="120">shield</text>
+      <path class="lead" d="M315 116 Q 308 110 302 108" marker-end="url(#arr)"/>
+      <!-- J topstitch -->
+      <path class="stitch" d="M268 60 L268 132 Q268 150 287 152"/>
+      <!-- bar tack -->
+      <rect x="282" y="150" width="10" height="6" fill="#b8434e"/>
+      <text class="slabel" x="250" y="176" text-anchor="middle">J-shaped</text>
+      <text class="slabel" x="250" y="189" text-anchor="middle">topstitch</text>
+      <path class="lead" d="M252 168 Q 260 150 266 132" marker-end="url(#arr)"/>
+      <text class="slabel" x="310" y="170" text-anchor="middle">bar tack</text>
+      <path class="lead" d="M306 162 Q 298 158 291 154" marker-end="url(#arr)"/>
+    </svg>
+    <figcaption>Fronts joined at the crotch with the fly basted, then the zipper, J-topstitch, fly shield, and bar tack.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 5 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">5</span>Outseams, then inseams</div>
+    <p>Join front to back at the <strong>outseams</strong>, then the <strong>inseams</strong>.</p>
+    <p>Try on and adjust the leg fit here, <em>before</em> the waistband locks everything in.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Front and back leg laid right sides together, with the outer side seam and the inner inseam stitched to form one leg tube">
+      <!-- one leg, front + back joined -->
+      <path class="fab" d="M70 48 L300 48 L296 96 L250 230 L196 230 L186 130 L176 230 L122 230 L80 96 Z"/>
+      <!-- outseams (sides) -->
+      <path class="stitch" d="M74 54 L84 96 L124 224"/>
+      <path class="stitch" d="M296 54 L292 96 L252 224"/>
+      <text class="slabel" x="60" y="120" text-anchor="end">outseam</text>
+      <path class="lead" d="M62 124 Q 80 130 92 138" marker-end="url(#arr)"/>
+      <text class="slabel" x="318" y="120" text-anchor="start">outseam</text>
+      <path class="lead" d="M316 124 Q 298 130 286 138" marker-end="url(#arr)"/>
+      <!-- inseams -->
+      <path class="stitch" d="M182 134 L180 224"/>
+      <path class="stitch" d="M190 134 L192 224"/>
+      <text class="slabel" x="186" y="120" text-anchor="middle">inseam</text>
+      <text class="scap" x="186" y="40" text-anchor="middle">front + back, right sides together</text>
+      <text class="scap" x="186" y="246" text-anchor="middle">try the fit on before the waistband</text>
+    </svg>
+    <figcaption>Outseams then inseams sewn into a leg tube; check the fit before the waistband.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 6 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">6</span>Back crotch seam</div>
+    <p>Sew from the inseam up through the back waist.</p>
+    <p>Some patterns join earlier; for jeans this is the order, sewn flat-felled (technique below).</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The two leg tubes nested right sides together and the curved back crotch seam stitched from the inseam junction up to the back waist">
+      <!-- back view: two legs joined at center back -->
+      <path class="fab" d="M60 50 L320 50 L320 70 Q250 86 222 150 L262 230 L208 230 L190 150 L172 230 L118 230 L158 150 Q130 86 60 70 Z"/>
+      <!-- back crotch curve -->
+      <path class="stitch" d="M190 150 Q196 100 250 78 Q300 64 316 56"/>
+      <path class="stitch" d="M190 150 Q184 100 130 78 Q80 64 64 56"/>
+      <!-- inseam junction marker -->
+      <circle cx="190" cy="150" r="3" fill="#b8434e"/>
+      <path class="lead" d="M214 172 Q 200 160 192 152" marker-end="url(#arr)"/>
+      <text class="slabel" x="232" y="180" text-anchor="middle">start at the</text>
+      <text class="slabel" x="232" y="193" text-anchor="middle">inseam junction</text>
+      <text class="slabel" x="190" y="78" text-anchor="middle">back waist</text>
+      <path class="lead" d="M150 90 Q 170 84 182 84" marker-end="url(#arr)"/>
+      <text class="scap" x="190" y="42" text-anchor="middle">back crotch seam, inseam up to the waist</text>
+    </svg>
+    <figcaption>Back crotch seam sewn from the inseam junction up through the back waist.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 7 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">7</span>Waistband</div>
+    <p>Straight band for jeans, curved band or facing for trousers.</p>
+    <ol>
+      <li>Interface.</li>
+      <li>Attach to the waist, catching pocket bags and belt loops.</li>
+      <li>Turn and finish by stitching in the ditch from the outside.</li>
+    </ol>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Waistband attached to the pant waist catching belt loops and pocket bags, then turned and finished by stitching in the ditch from the outside">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — attach to the waist</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — turn &amp; stitch the ditch</text>
+      <!-- A: band over waist, RST -->
+      <rect class="fab" x="24" y="70" width="148" height="30"/>
+      <rect class="interf" x="28" y="74" width="140" height="10"/>
+      <rect class="fabws" x="24" y="100" width="148" height="70"/>
+      <path class="stitch" d="M28 100 H168"/>
+      <!-- belt loop -->
+      <rect class="fabd" x="64" y="62" width="10" height="38"/>
+      <rect class="fabd" x="120" y="62" width="10" height="38"/>
+      <text class="slabel" x="98" y="58" text-anchor="middle">belt loops caught in</text>
+      <text class="slabel" x="96" y="156" text-anchor="middle">pant waist</text>
+      <path class="lead" d="M40 178 Q 60 168 78 156" marker-end="url(#arr)"/>
+      <text class="slabel" x="40" y="190" text-anchor="middle">+ pocket bags</text>
+      <!-- B: ditch-stitch cross section -->
+      <rect class="fab" x="228" y="74" width="120" height="26"/>
+      <rect class="fab" x="228" y="146" width="120" height="26"/>
+      <path class="fabws" d="M228 100 L348 100 L348 146 L228 146 Z"/>
+      <rect x="228" y="100" width="120" height="8" fill="#dde6ef" stroke="#8fa3b8" stroke-width="1"/>
+      <!-- the ditch line -->
+      <path class="guide" d="M288 70 L288 176"/>
+      <path class="stitch" d="M288 74 L288 100"/>
+      <text class="slabel" x="312" y="92" text-anchor="middle">stitch in</text>
+      <text class="slabel" x="312" y="105" text-anchor="middle">the ditch</text>
+      <path class="lead" d="M306 86 Q 296 84 290 84" marker-end="url(#arr)"/>
+      <text class="slabel" x="288" y="166" text-anchor="middle">band folded to inside</text>
+    </svg>
+    <figcaption>Waistband attached over belt loops and pocket bags, then turned and stitched in the ditch.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 8 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">8</span>Belt loops, hardware, bar tacks</div>
+    <p>Finish the belt loops, set the hook/button, and add bar tacks at the fly and pocket corners.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="The finished waist and fly with belt loops tacked top and bottom, a jeans button and buttonhole, and reinforcing bar tacks at the fly bottom and pocket corners">
+      <!-- waistband band -->
+      <rect class="fab" x="40" y="56" width="300" height="40"/>
+      <!-- belt loops with bar tacks -->
+      <rect class="fabd" x="90" y="50" width="12" height="52"/>
+      <rect x="90" y="52" width="12" height="5" fill="#b8434e"/>
+      <rect x="90" y="95" width="12" height="5" fill="#b8434e"/>
+      <rect class="fabd" x="184" y="50" width="12" height="52"/>
+      <rect x="184" y="52" width="12" height="5" fill="#b8434e"/>
+      <rect x="184" y="95" width="12" height="5" fill="#b8434e"/>
+      <rect class="fabd" x="278" y="50" width="12" height="52"/>
+      <rect x="278" y="52" width="12" height="5" fill="#b8434e"/>
+      <rect x="278" y="95" width="12" height="5" fill="#b8434e"/>
+      <text class="slabel" x="40" y="115" text-anchor="start">bar-tack loops top &amp; bottom</text>
+      <!-- button + buttonhole -->
+      <circle cx="316" cy="76" r="7" class="metal"/>
+      <circle cx="316" cy="76" r="2.5" fill="#7d838a"/>
+      <path d="M60 70 h16" stroke="#5a554e" stroke-width="2"/>
+      <text class="slabel" x="316" y="110" text-anchor="middle">hook / jeans button</text>
+      <!-- fly + pocket corners below -->
+      <rect class="fab" x="120" y="120" width="140" height="100"/>
+      <path class="guide" d="M190 120 L190 188"/>
+      <path class="stitch" d="M150 124 L150 178 Q150 192 190 194"/>
+      <rect x="184" y="190" width="11" height="7" fill="#b8434e"/>
+      <text class="slabel" x="150" y="214" text-anchor="middle">bar tack — fly bottom</text>
+      <path class="lead" d="M168 200 Q 178 198 186 195" marker-end="url(#arr)"/>
+      <!-- pocket corner tacks -->
+      <path d="M232 124 L232 168 L256 168" fill="none" stroke="#5e7f9e" stroke-width="1.5"/>
+      <rect x="226" y="124" width="7" height="11" fill="#b8434e"/>
+      <text class="slabel" x="248" y="190" text-anchor="middle">pocket corners</text>
+      <path class="lead" d="M242 182 Q 236 160 230 138" marker-end="url(#arr)"/>
+    </svg>
+    <figcaption>Belt loops, button/hook, and reinforcing bar tacks at the fly bottom and pocket corners.</figcaption>
+  </figure>
+</div>
+
+<!-- ──────────────── STEP 9 ──────────────── -->
+<div class="step">
+  <div class="text">
+    <div class="steptitle"><span class="stepnum">9</span>Hem</div>
+    <ul>
+      <li><strong>Trousers</strong>: plain hem (blind hem optional).</li>
+      <li><strong>Jeans</strong>: topstitched double-fold.</li>
+    </ul>
+  </div>
+  <figure>
+    <svg viewBox="0 0 380 250" role="img" aria-label="Two hem cross-sections: a trouser plain or blind hem with the allowance turned up once, and a jeans double-fold hem topstitched twice">
+      <line x1="190" y1="34" x2="190" y2="232" stroke="#e6dfd4" stroke-width="1.5"/>
+      <text class="scap" x="96" y="40" text-anchor="middle">A — trousers: plain / blind</text>
+      <text class="scap" x="285" y="40" text-anchor="middle">B — jeans: double-fold</text>
+      <!-- A: plain hem cross section -->
+      <rect class="fab" x="60" y="64" width="34" height="150"/>
+      <path class="fabws" d="M60 214 L94 214 L94 150 L60 150 Z" opacity="0.92"/>
+      <path class="serge" d="M60 150 H94"/>
+      <!-- blind stitch zigzag -->
+      <path class="stitch" d="M60 168 l8 6 l-8 6 l8 6 l-8 6"/>
+      <text class="slabel" x="118" y="170" text-anchor="start">turned up</text>
+      <text class="slabel" x="118" y="183" text-anchor="start">once; blind</text>
+      <text class="slabel" x="118" y="196" text-anchor="start">hem optional</text>
+      <!-- B: jeans double fold -->
+      <rect class="fab" x="262" y="64" width="34" height="150"/>
+      <path class="fab" d="M262 214 L296 214 L296 120 L262 120 Z"/>
+      <path class="fabws" d="M262 158 L296 158 L296 120 L262 120 Z" opacity="0.92"/>
+      <path class="stitch" d="M262 188 H296"/>
+      <path class="stitch" d="M262 200 H296"/>
+      <text class="slabel" x="318" y="180" text-anchor="start">fold twice,</text>
+      <text class="slabel" x="318" y="193" text-anchor="start">no raw edge</text>
+      <text class="slabel" x="318" y="206" text-anchor="start">topstitch</text>
+    </svg>
+    <figcaption>Trouser plain or blind hem turned up once; jeans hem double-folded and topstitched.</figcaption>
+  </figure>
+</div>
+
+<h2>Key Techniques</h2>
+
+<div class="tech">
+  <h3>The fly front, demystified</h3>
+  <p>Every tutorial differs in details, but the skeleton is always:</p>
+  <ol>
+    <li>Sew the front crotch seam up to the fly notch; baste the fly opening closed and press it as if finished.</li>
+    <li>Sew the zipper tape to the <em>left</em> fly extension (the side that gets the topstitching curve),
+    then stitch the famous J-shaped topstitching through the front, extension, and tape.</li>
+    <li>Sew the other tape to the <em>right</em> side's edge along with the fly shield (the flap that protects
+    skin from the zipper).</li>
+    <li>Remove basting, bar-tack the bottom of the fly.</li>
+  </ol>
+  <p>Convention: women's trousers lap right over left, jeans lap left over right — but nobody will ever notice.
+  Closet Core's Sasha (trousers) and Ginger (jeans) tutorials are the clearest photo sequences;
+  Seamwork's and Helen's Closet's are good second angles on the same steps.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 190" role="img" aria-label="The four fly seams in order: baste the opening, sew the zipper to the left extension with the J-topstitch, attach the right tape with the fly shield, then bar-tack the bottom">
+      <text class="scap" x="60" y="22" text-anchor="middle">1 — baste closed</text>
+      <text class="scap" x="160" y="22" text-anchor="middle">2 — left + J</text>
+      <text class="scap" x="252" y="22" text-anchor="middle">3 — right + shield</text>
+      <text class="scap" x="340" y="22" text-anchor="middle">4 — bar tack</text>
+      <!-- 1 -->
+      <rect class="fab" x="30" y="34" width="60" height="120"/>
+      <path class="guide" d="M60 34 L60 110"/>
+      <path class="stitch-old" d="M60 38 L60 108"/>
+      <path d="M55 110 l5 7 l5 -7 z" fill="none" stroke="#5a554e" stroke-width="1.2"/>
+      <!-- 2 -->
+      <rect class="fab" x="128" y="34" width="60" height="120"/>
+      <path class="coil" d="M156 40 L156 120"/>
+      <path class="stitch" d="M140 38 L140 110 Q140 124 158 126"/>
+      <text class="slabel" x="158" y="150" text-anchor="middle">left tape</text>
+      <!-- 3 -->
+      <rect class="fab" x="222" y="34" width="60" height="120"/>
+      <path class="coil" d="M250 40 L250 120"/>
+      <path class="fabws" d="M250 44 L266 44 L266 120 Q258 126 250 120 Z" opacity="0.9"/>
+      <text class="slabel" x="256" y="150" text-anchor="middle">shield</text>
+      <!-- 4 -->
+      <rect class="fab" x="312" y="34" width="56" height="120"/>
+      <path class="stitch" d="M324 38 L324 108 Q324 120 340 122"/>
+      <rect x="335" y="120" width="10" height="6" fill="#b8434e"/>
+      <text class="slabel" x="340" y="150" text-anchor="middle">bottom</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Flat-felled seams (jeans)</h3>
+  <p>The seam that makes jeans jeans: sew at 5/8", trim one allowance to 1/4", press the wide allowance over
+  the trimmed one, fold it under, and topstitch through the fold. Strong, enclosed, with the double-stitched
+  look outside. On jeans, fell the inseams and yoke; the outseam is usually just serged and topstitched at
+  the hip. Mock flat-fell (serge both allowances, press to one side, two rows of topstitching) is an easier
+  substitute on bulky denim.</p>
+  <div class="mini">
+    <svg viewBox="0 0 380 190" role="img" aria-label="Flat-felled seam in three cross-section stages: sew right sides together and trim one allowance to a quarter inch, wrap the wide allowance around the trimmed one, then fold under and topstitch two rows">
+      <text class="scap" x="62" y="22" text-anchor="middle">1 — sew &amp; trim one</text>
+      <text class="scap" x="190" y="22" text-anchor="middle">2 — wrap the wide one</text>
+      <text class="scap" x="318" y="22" text-anchor="middle">3 — fold &amp; topstitch ×2</text>
+      <!-- stage 1: RST, one allowance trimmed -->
+      <rect class="fab" x="28" y="92" width="100" height="11"/>
+      <rect class="fab" x="28" y="107" width="100" height="11"/>
+      <path class="stitch" d="M52 84 V126"/>
+      <path d="M52 92 L28 92" stroke="#5e7f9e" stroke-width="1.2"/>
+      <path d="M52 118 L40 118" stroke="#5e7f9e" stroke-width="1.2"/>
+      <text class="slabel" x="78" y="146" text-anchor="middle">trim lower</text>
+      <text class="slabel" x="78" y="159" text-anchor="middle">to 1/4"</text>
+      <!-- stage 2: wide wraps around trimmed -->
+      <rect class="fab" x="160" y="98" width="92" height="11"/>
+      <path class="fab" d="M178 98 L178 86 L160 86 L160 109 Q160 121 178 121 L196 121 L196 109" />
+      <path class="stitch" d="M178 80 V124"/>
+      <path class="lead" d="M168 80 Q 176 84 184 86" marker-end="url(#arr)"/>
+      <text class="slabel" x="206" y="146" text-anchor="middle">wide allowance</text>
+      <text class="slabel" x="206" y="159" text-anchor="middle">wraps the raw edge</text>
+      <!-- stage 3: pressed flat, two topstitch rows -->
+      <rect class="fab" x="286" y="100" width="78" height="11"/>
+      <path class="fab" d="M306 100 L306 89 L326 89 L326 100 Z"/>
+      <path class="stitch" d="M300 84 V120"/>
+      <path class="stitch" d="M322 84 V120"/>
+      <text class="slabel" x="324" y="146" text-anchor="middle">two rows</text>
+      <text class="slabel" x="324" y="159" text-anchor="middle">show outside</text>
+    </svg>
+  </div>
+</div>
+
+<div class="tech">
+  <h3>Fit checkpoint</h3>
+  <p>Pants fit problems live in the crotch curve and are easiest to fix <strong>before the waistband goes
+  on</strong>. Baste, try on, adjust the rise/seat, then sew permanently.</p>
+</div>
+
+<h2>Serger Notes</h2>
+<div class="tech">
+  <ul>
+    <li>Serge all long edges immediately after cutting — much easier flat than inside a constructed leg.</li>
+    <li>Serge-finish the waistband edge that gets caught in the ditch-stitching instead of folding it under:
+    less bulk.</li>
+  </ul>
+</div>
+
+<h2>Advanced: Denim</h2>
+<div class="tech">
+  <ul>
+    <li><strong>Needle</strong>: jeans/denim 90/14 or 100/16. <strong>Topstitching thread</strong> in the
+    needle only, regular thread in the bobbin; lengthen the stitch to 3.0–3.5 for topstitching.</li>
+    <li>Sew over thick intersections with a hump jumper (or folded scrap of fabric) behind the foot so
+    stitches don't skip; hammering flat-felled junctions genuinely helps.</li>
+    <li>Topstitch as you go — every seam gets its topstitching while that area is still accessible,
+    not at the end.</li>
+    <li>Press hard with steam and a clapper for crisp felled seams.</li>
+    <li>Hardware: jeans buttons and rivets are hammer-on; buy a couple of spares for misfires.</li>
+  </ul>
+  <div class="mini">
+    <svg viewBox="0 0 380 160" role="img" aria-label="Denim aids: a hump jumper shim lifting the presser foot level over a thick seam intersection, and a hammer-set jeans button with rivets">
+      <text class="scap" x="98" y="22" text-anchor="middle">hump jumper over a thick seam</text>
+      <text class="scap" x="292" y="22" text-anchor="middle">hammer-on button &amp; rivets</text>
+      <!-- foot climbing a thick junction, leveled by a shim -->
+      <rect class="fabd" x="30" y="92" width="150" height="22"/>
+      <rect class="fabd" x="92" y="80" width="40" height="34"/>
+      <!-- presser foot -->
+      <path d="M40 56 L96 56 L96 78 L40 78 Z" fill="#c9cdd2" stroke="#7d838a" stroke-width="1.5"/>
+      <path d="M58 78 v8 M78 78 v8" stroke="#7d838a" stroke-width="1.2"/>
+      <!-- shim behind the foot -->
+      <rect x="40" y="80" width="14" height="12" fill="#e0d4b8" stroke="#b09a72" stroke-width="1.2"/>
+      <path class="stitch" d="M44 70 H176"/>
+      <text class="slabel" x="46" y="132" text-anchor="middle">shim keeps</text>
+      <text class="slabel" x="46" y="145" text-anchor="middle">the foot level</text>
+      <path class="lead" d="M120 70 Q 116 80 112 88" marker-end="url(#arr)"/>
+      <text class="slabel" x="150" y="78" text-anchor="middle">thick junction</text>
+      <!-- jeans button + rivets -->
+      <circle cx="270" cy="92" r="16" class="metal"/>
+      <circle cx="270" cy="92" r="7" fill="#9aa0a6"/>
+      <circle cx="270" cy="92" r="2.5" fill="#6b7077"/>
+      <text class="slabel" x="270" y="128" text-anchor="middle">tack button</text>
+      <circle cx="328" cy="74" r="6" class="metal"/>
+      <circle cx="328" cy="74" r="2" fill="#6b7077"/>
+      <circle cx="340" cy="100" r="6" class="metal"/>
+      <circle cx="340" cy="100" r="2" fill="#6b7077"/>
+      <text class="slabel" x="378" y="128" text-anchor="end">rivets at corners</text>
+    </svg>
+  </div>
+</div>
+
+<h2>Sources</h2>
+<ul class="sources">
+  <li><a href="https://blog.closetcorepatterns.com/sewing-zipper-fly-front-sasha-trousers/">How to Sew a Fly Front Zipper for Pants + Trousers (Sasha) — Closet Core Patterns</a></li>
+  <li><a href="https://blog.closetcorepatterns.com/ginger-sewalong-pt-8-sewing-a-fly-front-zipper/">How to Sew a Fly Front Zipper for Jeans (Ginger Sewalong) — Closet Core Patterns</a></li>
+  <li><a href="https://www.seamwork.com/articles/how-to-sew-a-zipper-fly">How to Sew a Zipper Fly — Seamwork</a></li>
+  <li><a href="https://blog.megannielsen.com/2018/05/ash-jeans-sewalong-sew-fly-front/">Ash Jeans Sewalong: How to Sew a Fly Front — Megan Nielsen</a></li>
+  <li><a href="https://helensclosetpatterns.com/blogs/helens-closet/how-to-sew-a-zipper-fly">How to Sew a Zipper Fly — Helen's Closet</a></li>
+  <li><a href="https://www.craftsy.com/post/how-to-sew-a-fly-front-zipper">Sewing Pants 101: Fly-Front Zipper — Craftsy</a></li>
+  <li><a href="https://blog.closetcorepatterns.com/how-to-sew-flat-felled-seams-two-ways/">How to Sew Flat Felled Seams Two Ways — Closet Core Patterns</a></li>
+  <li><a href="https://blog.megannielsen.com/2018/05/sew-flat-felled-seam/">Ash Jeans Sewalong: How to Sew a Flat-Felled Seam — Megan Nielsen</a></li>
+  <li><a href="https://sewandrew.com/2018/07/01/jean-journey-2-flat-felling-yokes-back-seam-making-jeans-step-by-step/">Flat Felling Yokes &amp; Back Seam: Making Jeans Step by Step — Sew Andrew</a></li>
+  <li><a href="https://mellysews.com/sewing-a-flat-felled-seam/">Illustrated Guide to Sewing a Flat Felled Seam — Melly Sews</a></li>
+  <li><a href="https://alinadesignco.com/2017/03/27/how-to-sew-flat-felled-seams/">How to Sew Flat Felled Seams — Alina Sewing + Design Co.</a></li>
+</ul>
+
+<footer>Diagrams informed by the Closet Core (Sasha &amp; Ginger) and Megan Nielsen tutorials above · 2026-06-12</footer>
+
+</main>
+</body>
+</html>
